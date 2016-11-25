@@ -1,3 +1,3 @@
 # None of your business.
 
-### [Try this instead](www.google.com)
+### [Try this instead](http://www.google.com)
