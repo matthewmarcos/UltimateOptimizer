@@ -1,23 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Ultimate Optimizer</title>
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-
-    <div class="container">
-        <h1>Ultimate Optimizer</h1>
-        <input type="textfield"/>
-        <input type="textfield"/>
-        <input type="textfield"/>
+<div id="app">
+<div id="my-navbar">
+    <nav class="teal darken-4">
+        <div class="nav-wrapper container">
+        <a href="#" v-on:click="appType = 'index'" class="brand-logo">Noob Buster</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#" v-on:click="appType = 'index'">Index</a></li>
+        <li><a href="#" v-on:click="appType = 'dietary-problem-solver'">Ultimate Optimizer</a></li>
+        <li><a href="#" v-on:click="appType = 'ultimate-optimizer'">Dietary Problem Solver</a></li>
+        </ul>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <div v-if="isAppType('index')">
+        <div id="index">
+            Index
+        </div>
     </div>
-
-<script src="js/vue.min.js"></script>
-<script src="js/jquery.js"></script>
-<script src="js/materialize.min.js"></script>
-<script src="js/script.js"></script>
+    <div v-if="isAppType('dietary-problem-solver')">
+        <div id="dietary-problem-solver">
+            Problem Solver
+        </div>
+    </div>
+    <div v-if="isAppType('ultimate-optimizer')">
+        <div id="ultimate-optimizer">
+            Ultimate Optimizer
+        </div>
+    </div>
+</div>
+</div>
+    <!--<script src="js/vue.min.js"></script>-->
+    <script src="js/vue.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/lodash.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
+
 </html>
