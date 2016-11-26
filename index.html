@@ -15,9 +15,9 @@
         <div class="nav-wrapper container">
         <a href="#" v-on:click="appType = 'index'" class="brand-logo">Noob Buster</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#" v-on:click="appType = 'index'">Index</a></li>
-        <li><a href="#" v-on:click="appType = 'ultimate-optimizer'">Ultimate Optimizer</a></li>
-        <li><a href="#" v-on:click="appType = 'dietary-problem-solver'">Dietary Problem Solver</a></li>
+        <li><a v-on:click="setAppType('index')">Index</a></li>
+        <li><a v-on:click="setAppType('ultimate-optimizer')">Ultimate Optimizer</a></li>
+        <li><a v-on:click="setAppType('dietary-problem-solver')">Dietary Problem Solver</a></li>
         </ul>
         </div>
     </nav>

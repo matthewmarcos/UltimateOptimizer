@@ -1,20 +1,24 @@
+// Juice colored.
 // Transposes the matrix
 const transpose = m => m[0].map((x, i) => m.map(x => x[i]));
 const log = x => console.log(x);
 
-new Vue({
+Vue.config.silent = false;
+Vue.config.devtools = true;
+
+let rootVue = new Vue({
     el: '#app',
     data: {
-        'appType': 'index'
+        appType: 'index',
+        clicks : 0
     },
     methods: {
         setAppType(appType) {
-            console.log('WhAT');
             this['appType'] = appType;
-            document.title = appType;
+            this['clicks']+= 1;
         },
-        isAppType(source) {
-            return source === this['appType'];
+        isAppType(src) {
+            return src === this['appType'];
         }
     }
 });
