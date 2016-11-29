@@ -64,11 +64,11 @@
             <div class="row">
                 <!--First-->
                 <div class="col s4">
-                    <h5 class="center">Select</h5>
+                    <h5 class="center">Food</h5>
                     <div class="collection unano">
                         <a href="#!" class="collection-item"
                         v-for="name in dietarySolver.choices" v-on:click="setSelected(name.key)"
-                        v-bind:class="{active: name.isSelected}">
+                        v-bind:class="{active: name.isSelected, 'black-text': name.isAdded, grey : name.isAdded}">
                             {{name.foodName}}
                         </a>
                     </div>
@@ -164,7 +164,7 @@
                 </div>
                 <!--End-->
                 <div class="col s4">
-                    <h5 class="center">Select</h5>
+                    <h5 class="center">Selected</h5>
                     <div class="collection unano">
                         <a href="#!" class="collection-item"
                         v-for="name in dietarySolver.picks"
