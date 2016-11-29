@@ -9,8 +9,12 @@ const foodNames = _.map(foodData, function(food) {
     };
 });
 
-// Generate Tableau.
-const generateTableau = foods => {
+const generateTableauU = (functions, toMaximize) => {
+
+}
+
+// Generate Tableau for Food solver.
+const generateTableauF = foods => {
     // Determine number of foodstuff
     const foodCount = foods.length;
 
