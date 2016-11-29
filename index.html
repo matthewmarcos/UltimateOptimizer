@@ -74,77 +74,89 @@
                 </div>
                 <div class="col s4">
                     <h5 class="center">About</h5>
-                    <div class="unano2" v-if="dietarySolver.focusedFood !== ''">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Data Field</th>
-                                    <th>Value</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>{{ dietarySolver.focusedFood.food.replace(/_/g, ' ') }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Price (per serving)</td>
-                                    <td>${{ dietarySolver.focusedFood.pricePerServing }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Serving Size</td>
-                                    <td>{{ dietarySolver.focusedFood.servingSize.replace(/_/g, ' ') }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Calories</td>
-                                    <td>{{ dietarySolver.focusedFood.calories }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Cholesterol</td>
-                                    <td>
-                                        {{ dietarySolver.focusedFood.cholesterol }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Total Fat</td>
-                                    <td>{{ dietarySolver.focusedFood.totalFat }}g</td>
-                                </tr>
-                                <tr>
-                                    <td>Sodium</td>
-                                    <td>{{ dietarySolver.focusedFood.sodium }}mg</td>
-                                </tr>
-                                <tr>
-                                    <td>Carbohydrates</td>
-                                    <td>{{ dietarySolver.focusedFood.carbohydrates }}g</td>
-                                </tr>
-                                <tr>
-                                    <td>Dietary Fiber</td>
-                                    <td>{{ dietarySolver.focusedFood.dietaryFiber }}g</td>
-                                </tr>
-                                <tr>
-                                    <td>Protein</td>
-                                    <td>
-                                        {{ dietarySolver.focusedFood.protein }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Vitamin A</td>
-                                    <td>{{ dietarySolver.focusedFood.vitA }}IU</td>
-                                </tr>
-                                <tr>
-                                    <td>Vitamin C</td>
-                                    <td>{{ dietarySolver.focusedFood.vitC }}IU</td>
-                                </tr>
-                                <tr>
-                                    <td>Calcium</td>
-                                    <td>{{ dietarySolver.focusedFood.calcium }}mg</td>
-                                </tr>
-                                <tr>
-                                    <td>Iron</td>
-                                    <td>{{ dietarySolver.focusedFood.iron }}mg</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div v-if="dietarySolver.focusedFood !== ''">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="unano2">
+                                    <table >
+                                        <thead>
+                                            <tr>
+                                                <th>Data Field</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>{{ dietarySolver.focusedFood.food.replace(/_/g, ' ') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Price (per serving)</td>
+                                                <td>${{ dietarySolver.focusedFood.pricePerServing }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Serving Size</td>
+                                                <td>{{ dietarySolver.focusedFood.servingSize.replace(/_/g, ' ') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Calories</td>
+                                                <td>{{ dietarySolver.focusedFood.calories }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cholesterol</td>
+                                                <td>
+                                                    {{ dietarySolver.focusedFood.cholesterol }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Fat</td>
+                                                <td>{{ dietarySolver.focusedFood.totalFat }}g</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sodium</td>
+                                                <td>{{ dietarySolver.focusedFood.sodium }}mg</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Carbohydrates</td>
+                                                <td>{{ dietarySolver.focusedFood.carbohydrates }}g</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dietary Fiber</td>
+                                                <td>{{ dietarySolver.focusedFood.dietaryFiber }}g</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Protein</td>
+                                                <td>
+                                                    {{ dietarySolver.focusedFood.protein }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vitamin A</td>
+                                                <td>{{ dietarySolver.focusedFood.vitA }}IU</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vitamin C</td>
+                                                <td>{{ dietarySolver.focusedFood.vitC }}IU</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Calcium</td>
+                                                <td>{{ dietarySolver.focusedFood.calcium }}mg</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Iron</td>
+                                                <td>{{ dietarySolver.focusedFood.iron }}mg</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--For the button-->
+                        <div class="row">
+                            <div class="col s12">
+                                <a class="waves-effect waves-light btn right">add this food!</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
