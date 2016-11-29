@@ -62,6 +62,7 @@
                 <h4>Dietary Problem Solver</h4>
             </div>
             <div class="row">
+                <!--First-->
                 <div class="col s4">
                     <h5 class="center">Select</h5>
                     <div class="collection unano">
@@ -72,6 +73,7 @@
                         </a>
                     </div>
                 </div>
+                <!--Middle-->
                 <div class="col s4">
                     <h5 class="center">About</h5>
                     <div v-if="dietarySolver.focusedFood !== ''">
@@ -154,9 +156,21 @@
                         <!--For the button-->
                         <div class="row">
                             <div class="col s12">
-                                <a class="waves-effect waves-light btn right">add this food!</a>
+                                <a class="waves-effect waves-light btn right"
+                                v-on:click="addFood()">add food!</a>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <!--End-->
+                <div class="col s4">
+                    <h5 class="center">Select</h5>
+                    <div class="collection unano">
+                        <a href="#!" class="collection-item"
+                        v-for="name in dietarySolver.picks"
+                        v-bind:class="{active: name.isSelected}">
+                            {{name.food.replace(/_/g, ' ')}}
+                        </a>
                     </div>
                 </div>
             </div>
