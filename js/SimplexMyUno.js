@@ -10,8 +10,13 @@ const foodNames = _.map(foodData, function(food) {
 });
 
 const generateTableauU = (functions, toMaximize) => {
+    console.log('To Maximize:');
+    console.log(toMaximize);
 
-}
+    console.log('functions');
+    console.log(functions);
+
+};
 
 // Generate Tableau for Food solver.
 const generateTableauF = foods => {

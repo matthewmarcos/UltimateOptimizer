@@ -43,7 +43,7 @@ const rootVue = new Vue({
 
         createTableauU() {
         // ultimateOptimizer - Start computation
-        // Check if there is an empty string
+            // Check if there is an empty string
             let allValidFunctionStrings = !!this.ultimateOptimizer.constraints.filter(x =>  {
                 return x.string === '';
             }).length;
@@ -52,6 +52,20 @@ const rootVue = new Vue({
                 Materialize.toast('Make sure all fields follow the proper format!', 2000);
                 return;
             }
+
+            // Need maximizing function
+            if(!this.ultimateOptimizer.maxFunction) {
+                Materialize.toast('Sure ka walang maximizing function?', 2000);
+                return;
+            }
+
+            // At least one constraint needed
+            if(this.ultimateOptimizer.constraints.length === 0) {
+                Materialize.toast('Sure ka walang constraints?', 2000);
+                return;
+            }
+
+            // Form checking muna sa mga input ni user bago mag parse
 
             let functions = this.ultimateOptimizer.constraints.map(x => x.string);
             generateTableauU(functions, this.ultimateOptimizer.maxFunction);
