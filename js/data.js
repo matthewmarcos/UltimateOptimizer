@@ -10,9 +10,9 @@ var foodData = [{
         dietaryFiber: 8.5,
         protein: 8,
         vitA: 5867.4,
-        vitB: 0.2,
-        Calcium: 159,
-        Iron: 2.3
+        vitC: 0.2,
+        calcium: 159,
+        iron: 2.3
     },
 
     {
@@ -27,9 +27,9 @@ var foodData = [{
         dietaryFiber: 1.6,
         protein: .6,
         vitA: 15471,
-        vitB: 5.1,
-        Calcium: 14.9,
-        Iron: 0.3
+        vitC: 5.1,
+        calcium: 14.9,
+        iron: 0.3
     },
 
     {
@@ -44,9 +44,9 @@ var foodData = [{
         dietaryFiber: 0.7,
         protein: .3,
         vitA: 53.6,
-        vitB: 2.8,
-        Calcium: 16,
-        Iron: 0.2
+        vitC: 2.8,
+        calcium: 16,
+        iron: 0.2
     },
 
     {
@@ -61,9 +61,9 @@ var foodData = [{
         dietaryFiber: 2,
         protein: 2.5,
         vitA: 106.6,
-        vitB: 5.2,
-        Calcium: 3.3,
-        Iron: 0.3
+        vitC: 5.2,
+        calcium: 3.3,
+        iron: 0.3
     },
 
     {
@@ -78,9 +78,9 @@ var foodData = [{
         dietaryFiber: 0.3,
         protein: .2,
         vitA: 66,
-        vitB: 0.8,
-        Calcium: 3.8,
-        Iron: 0.1
+        vitC: 0.8,
+        calcium: 3.8,
+        iron: 0.1
     },
 
     {
@@ -95,9 +95,9 @@ var foodData = [{
         dietaryFiber: 1.3,
         protein: .7,
         vitA: 467.7,
-        vitB: 66.1,
-        Calcium: 6.7,
-        Iron: 0.3
+        vitC: 66.1,
+        calcium: 6.7,
+        iron: 0.3
     },
 
     {
@@ -112,9 +112,9 @@ var foodData = [{
         dietaryFiber: 3.2,
         protein: 3.7,
         vitA: 0,
-        vitB: 15.6,
-        Calcium: 22.7,
-        Iron: 4.3
+        vitC: 15.6,
+        calcium: 22.7,
+        iron: 4.3
     },
 
     {
@@ -129,9 +129,9 @@ var foodData = [{
         dietaryFiber: 1.4,
         protein: 9.4,
         vitA: 98.6,
-        vitB: 0.1,
-        Calcium: 121.8,
-        Iron: 6.2
+        vitC: 0.1,
+        calcium: 121.8,
+        iron: 6.2
     },
 
     {
@@ -146,9 +146,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 42.2,
         vitA: 77.4,
-        vitB: 0,
-        Calcium: 21.9,
-        Iron: 1.8
+        vitC: 0,
+        calcium: 21.9,
+        iron: 1.8
     },
 
     {
@@ -163,9 +163,9 @@ var foodData = [{
         dietaryFiber: 11.6,
         protein: 8.2,
         vitA: 3055.2,
-        vitB: 27.9,
-        Calcium: 80.2,
-        Iron: 2.3
+        vitC: 27.9,
+        calcium: 80.2,
+        iron: 2.3
     },
 
     {
@@ -180,9 +180,9 @@ var foodData = [{
         dietaryFiber: 1.4,
         protein: 1,
         vitA: 766.3,
-        vitB: 23.5,
-        Calcium: 6.2,
-        Iron: 0.6
+        vitC: 23.5,
+        calcium: 6.2,
+        iron: 0.6
     },
 
     {
@@ -197,9 +197,9 @@ var foodData = [{
         dietaryFiber: 3.7,
         protein: .3,
         vitA: 73.1,
-        vitB: 7.9,
-        Calcium: 9.7,
-        Iron: 0.2
+        vitC: 7.9,
+        calcium: 9.7,
+        iron: 0.2
     },
 
     {
@@ -214,9 +214,9 @@ var foodData = [{
         dietaryFiber: 2.7,
         protein: 1.2,
         vitA: 92.3,
-        vitB: 10.4,
-        Calcium: 6.8,
-        Iron: 0.4
+        vitC: 10.4,
+        calcium: 6.8,
+        iron: 0.4
     },
 
     {
@@ -231,9 +231,9 @@ var foodData = [{
         dietaryFiber: 0.2,
         protein: .2,
         vitA: 24,
-        vitB: 1,
-        Calcium: 3.4,
-        Iron: 0.1
+        vitC: 1,
+        calcium: 3.4,
+        iron: 0.1
     },
 
     {
@@ -248,9 +248,9 @@ var foodData = [{
         dietaryFiber: 0.8,
         protein: 0.8,
         vitA: 133,
-        vitB: 74.5,
-        Calcium: 19.8,
-        Iron: 0.3
+        vitC: 74.5,
+        calcium: 19.8,
+        iron: 0.3
     },
 
     {
@@ -265,9 +265,9 @@ var foodData = [{
         dietaryFiber: 3.1,
         protein: 1.2,
         vitA: 268.6,
-        vitB: 69.7,
-        Calcium: 52.4,
-        Iron: 0.1
+        vitC: 69.7,
+        calcium: 52.4,
+        iron: 0.1
     },
 
     {
@@ -282,9 +282,9 @@ var foodData = [{
         dietaryFiber: 0.6,
         protein: 3,
         vitA: 0,
-        vitB: 0,
-        Calcium: 21,
-        Iron: 1
+        vitC: 0,
+        calcium: 21,
+        iron: 1
     },
 
     {
@@ -299,9 +299,9 @@ var foodData = [{
         dietaryFiber: 1.3,
         protein: 2.2,
         vitA: 0,
-        vitB: 0,
-        Calcium: 10.8,
-        Iron: 0.7
+        vitC: 0,
+        calcium: 10.8,
+        iron: 0.7
     },
 
     {
@@ -316,9 +316,9 @@ var foodData = [{
         dietaryFiber: 1.1,
         protein: 2.3,
         vitA: 0,
-        vitB: 0,
-        Calcium: 26.2,
-        Iron: 0.8
+        vitC: 0,
+        calcium: 26.2,
+        iron: 0.8
     },
 
     {
@@ -333,9 +333,9 @@ var foodData = [{
         dietaryFiber: 0.6,
         protein: 1.1,
         vitA: 2.9,
-        vitB: 0.1,
-        Calcium: 6.7,
-        Iron: 0.5
+        vitC: 0.1,
+        calcium: 6.7,
+        iron: 0.5
     },
 
     {
@@ -350,9 +350,9 @@ var foodData = [{
         dietaryFiber: 0.5,
         protein: .5,
         vitA: 35.2,
-        vitB: 0.9,
-        Calcium: 3.1,
-        Iron: 0.1
+        vitC: 0.9,
+        calcium: 3.1,
+        iron: 0.1
     },
 
     {
@@ -367,9 +367,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: .9,
         vitA: 101.8,
-        vitB: 0,
-        Calcium: 6.2,
-        Iron: 0.4
+        vitC: 0,
+        calcium: 6.2,
+        iron: 0.4
     },
 
     {
@@ -384,9 +384,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 0,
         vitA: 152.9,
-        vitB: 0,
-        Calcium: 1.2,
-        Iron: 0
+        vitC: 0,
+        calcium: 1.2,
+        iron: 0
     },
 
     {
@@ -401,9 +401,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 7,
         vitA: 296.5,
-        vitB: 0,
-        Calcium: 202,
-        Iron: 0.2
+        vitC: 0,
+        calcium: 202,
+        iron: 0.2
     },
 
     {
@@ -418,9 +418,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 8,
         vitA: 307.4,
-        vitB: 2.3,
-        Calcium: 291.3,
-        Iron: 0.1
+        vitC: 2.3,
+        calcium: 291.3,
+        iron: 0.1
     },
 
     {
@@ -435,9 +435,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 8.1,
         vitA: 500.2,
-        vitB: 2.3,
-        Calcium: 296.7,
-        Iron: 0.1
+        vitC: 2.3,
+        calcium: 296.7,
+        iron: 0.1
     },
 
     {
@@ -452,9 +452,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 8.4,
         vitA: 499.8,
-        vitB: 2.4,
-        Calcium: 302.3,
-        Iron: 0.1
+        vitC: 2.4,
+        calcium: 302.3,
+        iron: 0.1
     },
 
     {
@@ -469,9 +469,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 6.2,
         vitA: 316,
-        vitB: 0,
-        Calcium: 24.5,
-        Iron: 0.7
+        vitC: 0,
+        calcium: 24.5,
+        iron: 0.7
     },
 
     {
@@ -486,9 +486,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 6.7,
         vitA: 409.2,
-        vitB: 0.1,
-        Calcium: 42.6,
-        Iron: 0.7
+        vitC: 0.1,
+        calcium: 42.6,
+        iron: 0.7
     },
 
     {
@@ -503,9 +503,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 3.9,
         vitA: 0,
-        vitB: 0,
-        Calcium: 23.8,
-        Iron: 0.4
+        vitC: 0,
+        calcium: 23.8,
+        iron: 0.4
     },
 
     {
@@ -520,9 +520,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 5.4,
         vitA: 0,
-        vitB: 10.8,
-        Calcium: 9,
-        Iron: 0.6
+        vitC: 10.8,
+        calcium: 9,
+        iron: 0.6
     },
 
     {
@@ -537,9 +537,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 5.5,
         vitA: 0,
-        vitB: 7.4,
-        Calcium: 2,
-        Iron: 0.2
+        vitC: 7.4,
+        calcium: 2,
+        iron: 0.2
     },
 
     {
@@ -554,9 +554,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 3.4,
         vitA: 0,
-        vitB: 5.5,
-        Calcium: 11.4,
-        Iron: 0.4
+        vitC: 5.5,
+        calcium: 11.4,
+        iron: 0.4
     },
 
     {
@@ -571,9 +571,9 @@ var foodData = [{
         dietaryFiber: 0.5,
         protein: 1.4,
         vitA: 40.6,
-        vitB: 0,
-        Calcium: 4.8,
-        Iron: 7.5
+        vitC: 0,
+        calcium: 4.8,
+        iron: 7.5
     },
 
     {
@@ -588,9 +588,9 @@ var foodData = [{
         dietaryFiber: 2,
         protein: 4.3,
         vitA: 1252.2,
-        vitB: 15.1,
-        Calcium: 48.6,
-        Iron: 4.5
+        vitC: 15.1,
+        calcium: 48.6,
+        iron: 4.5
     },
 
     {
@@ -605,9 +605,9 @@ var foodData = [{
         dietaryFiber: 0.7,
         protein: 2.3,
         vitA: 1252.2,
-        vitB: 15.1,
-        Calcium: 0.9,
-        Iron: 1.8
+        vitC: 15.1,
+        calcium: 0.9,
+        iron: 1.8
     },
 
     {
@@ -622,9 +622,9 @@ var foodData = [{
         dietaryFiber: 4,
         protein: 4,
         vitA: 1250.2,
-        vitB: 0,
-        Calcium: 12.9,
-        Iron: 16.8
+        vitC: 0,
+        calcium: 12.9,
+        iron: 16.8
     },
 
     {
@@ -639,9 +639,9 @@ var foodData = [{
         dietaryFiber: 0.4,
         protein: 1.9,
         vitA: 1252.2,
-        vitB: 15.1,
-        Calcium: 4,
-        Iron: 1.8
+        vitC: 15.1,
+        calcium: 4,
+        iron: 1.8
     },
 
     {
@@ -656,9 +656,9 @@ var foodData = [{
         dietaryFiber: 0.7,
         protein: 5.6,
         vitA: 1252.2,
-        vitB: 15.1,
-        Calcium: 8.2,
-        Iron: 4.5
+        vitC: 15.1,
+        calcium: 8.2,
+        iron: 4.5
     },
 
     {
@@ -673,9 +673,9 @@ var foodData = [{
         dietaryFiber: 4,
         protein: 6.1,
         vitA: 37.4,
-        vitB: 0,
-        Calcium: 18.7,
-        Iron: 1.6
+        vitC: 0,
+        calcium: 18.7,
+        iron: 1.6
     },
 
     {
@@ -690,9 +690,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 17.3,
         vitA: 0,
-        vitB: 0,
-        Calcium: 23.1,
-        Iron: 47.2
+        vitC: 0,
+        calcium: 23.1,
+        iron: 47.2
     },
 
     {
@@ -707,9 +707,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 10.1,
         vitA: 281.9,
-        vitB: 1.6,
-        Calcium: 64.6,
-        Iron: 0.9
+        vitC: 1.6,
+        calcium: 64.6,
+        iron: 0.9
     },
 
     {
@@ -724,9 +724,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 20.7,
         vitA: 855,
-        vitB: 2.2,
-        Calcium: 220.6,
-        Iron: 2.4
+        vitC: 2.2,
+        calcium: 220.6,
+        iron: 2.4
     },
 
     {
@@ -741,9 +741,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 13.6,
         vitA: 126.3,
-        vitB: 2.6,
-        Calcium: 51.4,
-        Iron: 2.5
+        vitC: 2.6,
+        calcium: 51.4,
+        iron: 2.5
     },
 
     {
@@ -758,9 +758,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 10.4,
         vitA: 0,
-        vitB: 0.1,
-        Calcium: 23.5,
-        Iron: 2.3
+        vitC: 0.1,
+        calcium: 23.5,
+        iron: 2.3
     },
 
     {
@@ -775,9 +775,9 @@ var foodData = [{
         dietaryFiber: 1.3,
         protein: 3.4,
         vitA: 0,
-        vitB: 0,
-        Calcium: 7.2,
-        Iron: 0.3
+        vitC: 0,
+        calcium: 7.2,
+        iron: 0.3
     },
 
     {
@@ -792,9 +792,9 @@ var foodData = [{
         dietaryFiber: 0.3,
         protein: 2.1,
         vitA: 0,
-        vitB: 0,
-        Calcium: 7.9,
-        Iron: 0.9
+        vitC: 0,
+        calcium: 7.9,
+        iron: 0.9
     },
 
     {
@@ -809,9 +809,9 @@ var foodData = [{
         dietaryFiber: 0.9,
         protein: 3.3,
         vitA: 0,
-        vitB: 0,
-        Calcium: 4.9,
-        Iron: 1
+        vitC: 0,
+        calcium: 4.9,
+        iron: 1
     },
 
     {
@@ -826,9 +826,9 @@ var foodData = [{
         dietaryFiber: 2.1,
         protein: 7.7,
         vitA: 0,
-        vitB: 0,
-        Calcium: 13.1,
-        Iron: 0.6
+        vitC: 0,
+        calcium: 13.1,
+        iron: 0.6
     },
 
     {
@@ -843,9 +843,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 13.8,
         vitA: 14.7,
-        vitB: 0,
-        Calcium: 59.9,
-        Iron: 0.4
+        vitC: 0,
+        calcium: 59.9,
+        iron: 0.4
     },
 
     {
@@ -860,9 +860,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 5.9,
         vitA: 53.8,
-        vitB: 0,
-        Calcium: 91.7,
-        Iron: 0.7
+        vitC: 0,
+        calcium: 91.7,
+        iron: 0.7
     },
 
     {
@@ -877,9 +877,9 @@ var foodData = [{
         dietaryFiber: 0,
         protein: 22.7,
         vitA: 68,
-        vitB: 0,
-        Calcium: 3.4,
-        Iron: 0.5
+        vitC: 0,
+        calcium: 3.4,
+        iron: 0.5
     },
 
     {
@@ -894,9 +894,9 @@ var foodData = [{
         dietaryFiber: 4.3,
         protein: 3.4,
         vitA: 55.6,
-        vitB: 0,
-        Calcium: 2.8,
-        Iron: 0.8
+        vitC: 0,
+        calcium: 2.8,
+        iron: 0.8
     },
 
     {
@@ -911,9 +911,9 @@ var foodData = [{
         dietaryFiber: 1.2,
         protein: 2.2,
         vitA: 61.5,
-        vitB: 9.6,
-        Calcium: 14.2,
-        Iron: 0.5
+        vitC: 9.6,
+        calcium: 14.2,
+        iron: 0.5
     },
 
     {
@@ -928,9 +928,9 @@ var foodData = [{
         dietaryFiber: 0.9,
         protein: 2.6,
         vitA: 0,
-        vitB: 0,
-        Calcium: 10.2,
-        Iron: 1.2
+        vitC: 0,
+        calcium: 10.2,
+        iron: 1.2
     },
 
     {
@@ -945,9 +945,9 @@ var foodData = [{
         dietaryFiber: 1.8,
         protein: 2,
         vitA: 55.6,
-        vitB: 0,
-        Calcium: 43.7,
-        Iron: 0.4
+        vitC: 0,
+        calcium: 43.7,
+        iron: 0.4
     },
 
     {
@@ -962,9 +962,9 @@ var foodData = [{
         dietaryFiber: 1.5,
         protein: 7.9,
         vitA: 1308.7,
-        vitB: 0,
-        Calcium: 27.1,
-        Iron: 1.5
+        vitC: 0,
+        calcium: 27.1,
+        iron: 1.5
     },
 
     {
@@ -979,9 +979,9 @@ var foodData = [{
         dietaryFiber: 4.1,
         protein: 11.1,
         vitA: 4872,
-        vitB: 7,
-        Calcium: 33.6,
-        Iron: 2.1
+        vitC: 7,
+        calcium: 33.6,
+        iron: 2.1
     },
 
     {
@@ -996,9 +996,9 @@ var foodData = [{
         dietaryFiber: 4,
         protein: 11.2,
         vitA: 3785.1,
-        vitB: 4.8,
-        Calcium: 32.6,
-        Iron: 2.2
+        vitC: 4.8,
+        calcium: 32.6,
+        iron: 2.2
     },
 
     {
@@ -1013,9 +1013,9 @@ var foodData = [{
         dietaryFiber: 1.5,
         protein: 10.9,
         vitA: 20.1,
-        vitB: 4.8,
-        Calcium: 82.8,
-        Iron: 2.8
+        vitC: 4.8,
+        calcium: 82.8,
+        iron: 2.8
     },
 
     {
@@ -1030,9 +1030,9 @@ var foodData = [{
         dietaryFiber: 1,
         protein: 4.1,
         vitA: 1393,
-        vitB: 133,
-        Calcium: 27.6,
-        Iron: 3.5
+        vitC: 133,
+        calcium: 27.6,
+        iron: 3.5
     },
 
     {
@@ -1047,9 +1047,9 @@ var foodData = [{
         dietaryFiber: 1.5,
         protein: 9.5,
         vitA: 163.7,
-        vitB: 3.5,
-        Calcium: 186,
-        Iron: 1.5
+        vitC: 3.5,
+        calcium: 186,
+        iron: 1.5
     },
 
     {
@@ -1064,9 +1064,9 @@ var foodData = [{
         dietaryFiber: 0.5,
         protein: 6.1,
         vitA: 153.8,
-        vitB: 2.2,
-        Calcium: 178.6,
-        Iron: 0.6
+        vitC: 2.2,
+        calcium: 178.6,
+        iron: 0.6
     },
 
     {
@@ -1081,8 +1081,8 @@ var foodData = [{
         dietaryFiber: 8.6,
         protein: 7.9,
         vitA: 888,
-        vitB: 1.5,
-        Calcium: 81,
-        Iron: 2
+        vitC: 1.5,
+        calcium: 81,
+        iron: 2
     }
 ];
