@@ -85,6 +85,26 @@ let rootVue = new Vue({
 
                 Materialize.toast(msgString, 2000);
             }
+        },
+
+        removePick(food) {
+
+            this.dietarySolver.picks = this.dietarySolver.picks.filter(x => {
+                return x.food !== food;
+            });
+
+            // Toggle isAdded flag
+            this.dietarySolver.choices = this.dietarySolver.choices.map(x => {
+                if(x.key === food) {
+                    x.isAdded = false;
+                }
+                return x;
+            });
+
+            const msgString = 'Removed ' +
+                    this.dietarySolver.focusedFood.food.replace(/_/g, ' ') +
+                    '!';
+            Materialize.toast(msgString, 1000);
         }
 
     }

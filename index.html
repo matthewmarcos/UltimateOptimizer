@@ -168,7 +168,7 @@
                     <div class="collection unano">
                         <a href="#!" class="collection-item"
                         v-for="name in dietarySolver.picks"
-                        v-bind:class="{active: name.isSelected}">
+                        v-on:click="removePick(name.food)">
                             {{name.food.replace(/_/g, ' ')}}
                         </a>
                     </div>
