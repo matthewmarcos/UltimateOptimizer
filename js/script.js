@@ -35,17 +35,23 @@ const rootVue = new Vue({
         },
 
         addConstraint() {
-            // Check if there is an empty string
-            let hasEmptyFunction = !!this.ultimateOptimizer.constraints.filter(x =>  x.string === '').length;
-            if(hasEmptyFunction) {
-                Materialize.toast('Make sure all empty fields are filled out first', 2000);
-                return;
-            }
-            else {
-                this.ultimateOptimizer.constraints.push({ string: '' });
-            }
+            this.ultimateOptimizer.constraints.push({ string: '' });
         },
 
+        createTableauU() {
+            // Check if there is an empty string
+            let allValidFunctionStrings = !!this.ultimateOptimizer.constraints.filter(x =>  {
+                return x.string === '';
+            }).length;
+
+            if(allValidFunctionStrings) {
+                Materialize.toast('Make sure all fields follow the proper format!', 2000);
+                return;
+            }
+
+            let functions = this.ultimateOptimizer.constraints.map(x => x.string);
+
+        },
 
         // Dietary Solver
         setSelected(food) {
@@ -123,3 +129,13 @@ const rootVue = new Vue({
 
     }
 });
+
+
+$(_ => {
+    // Scroll to the bottom of the page when contraint-adder is clicked
+    $('#constraint-adder').click(_ => {
+        $('html, body').animate({
+            scrollTop: ($("#scroll-here").offset().top + $("#scroll-here").height() - $(window).height())
+        }, 250);
+    });
+})
