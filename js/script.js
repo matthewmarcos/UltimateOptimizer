@@ -14,8 +14,7 @@ const foodNames = _.map(foodData, function(food) {
     };
 });
 
-
-let rootVue = new Vue({
+const rootVue = new Vue({
     el: '#app',
 
     data: {
@@ -88,7 +87,6 @@ let rootVue = new Vue({
         },
 
         removePick(food) {
-
             this.dietarySolver.picks = this.dietarySolver.picks.filter(x => {
                 return x.food !== food;
             });
@@ -105,6 +103,12 @@ let rootVue = new Vue({
                     this.dietarySolver.focusedFood.food.replace(/_/g, ' ') +
                     '!';
             Materialize.toast(msgString, 1000);
+        },
+
+        optimizeFood() {
+            let myPicks = $.extend(true, {}, this.dietarySolver.picks);
+
+            console.log(myPicks);
         }
 
     }
