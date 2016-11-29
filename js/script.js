@@ -106,6 +106,8 @@ const rootVue = new Vue({
         },
 
         optimizeFood() {
+
+            // Create unreferenced copy of the user's selection
             let myPicks = $.extend(true, {}, this.dietarySolver.picks);
 
             console.log(myPicks);

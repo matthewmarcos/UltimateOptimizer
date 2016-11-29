@@ -12,6 +12,7 @@
     margin-top: 10px;
 }
 
-/*.added-entry {
-
-}*/
+.deletable:hover {
+    background-color: #ef5350 !important;
+    color: black;
+}

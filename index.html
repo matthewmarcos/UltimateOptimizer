@@ -33,7 +33,21 @@
 <div class="container">
     <div v-if="isAppType('index')">
         <div id="index">
-            Index
+            <div class="row">
+                <div class="col s8">
+                    <h3>How to use me po?</h3>
+                    <p>
+                        Hello! Welcome to the Noob Buster: The ultimate optimizer and dietary problem solver.
+                        Now let us assume that they are related. A user first has to select from the navbar which application he/she would prefer to use. There are two choices: The ultimate optimizer and the dietary problem solver.
+                    </p>
+                    <img class="responsive-img" src="img/doge.jpg">
+
+                </div>
+                <div class="col s4">
+                    <h5>Creators:</h5>
+                    <p>Joseph Matthew R. Marcos</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -167,7 +181,7 @@
                     <h5 class="center">Selected</h5>
                     <div class="row">
                         <div class="collection unano2">
-                            <a href="#!" class="collection-item"
+                            <a href="#!" class="collection-item deletable"
                             v-for="name in dietarySolver.picks"
                             v-on:click="removePick(name.food)">
                                 {{name.food.replace(/_/g, ' ')}}
@@ -182,6 +196,19 @@
                     </div>
                 </div>
             </div>
+            <!--Solutions Row for dietary problem solver-->
+            <div class="row">
+                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi neque, quo dolorem nisi fuga assumenda commodi perspiciatis, fugit, adipisci ipsam quas odio. Libero dicta nihil excepturi aliquid, laborum laboriosam et!</div>
+                <div>Dolores expedita obcaecati cupiditate, aspernatur aut minus explicabo ad. Minus eius nesciunt commodi quam incidunt enim, deleniti cum placeat rerum doloribus reprehenderit neque voluptates minima omnis inventore! Et, deleniti, quas.</div>
+                <div>Id minima quidem harum alias quod, ex nostrum pariatur saepe temporibus rem quo similique? Quisquam, esse, repellendus. Pariatur voluptas, minus, mollitia vel at est amet, inventore et doloremque placeat molestiae.</div>
+                <div>Obcaecati deserunt esse corrupti illo tempore minima! Quasi doloremque molestiae magni iusto saepe commodi officia possimus blanditiis obcaecati velit nesciunt corrupti deserunt ad, enim sit ipsa. Corrupti, molestias, reiciendis. Repellat.</div>
+                <div>Culpa omnis rerum deserunt error a eos inventore explicabo repellat earum laboriosam ratione iure sapiente sunt, iste obcaecati nam tempora sequi quidem quibusdam soluta eum tenetur hic consectetur ab fuga.</div>
+                <div>Cupiditate, quam impedit odit sapiente qui excepturi recusandae, itaque consequuntur suscipit cumque aspernatur nisi sed. Dolore minima perferendis corporis, possimus eius alias sit nostrum fuga ad, rem earum deserunt exercitationem!</div>
+                <div>Officia adipisci molestiae eos nemo, quibusdam odio quo pariatur ea repellendus quae culpa eligendi nisi fugiat ad perspiciatis voluptatem libero praesentium, doloribus alias sint deserunt provident. Et animi voluptatum provident!</div>
+                <div>Sunt eius nobis aut cupiditate nostrum! Maxime harum, autem officiis ex totam, asperiores exercitationem saepe doloribus veritatis eligendi, dolorum quaerat. Repellendus quibusdam, reiciendis necessitatibus neque ipsum deleniti minus earum quos.</div>
+                <div>Est deserunt sunt amet consequuntur, ea, qui aliquam accusamus explicabo perferendis ipsam inventore ipsa possimus delectus porro! Deleniti, qui officiis ex eligendi necessitatibus nobis non ad explicabo cumque eum! Suscipit.</div>
+                <div>Ad a eius aut ullam inventore, quo voluptatem deleniti pariatur, recusandae quas impedit unde ipsam facere officiis est mollitia officia enim. Error nulla possimus sequi quis, id modi porro earum!</div>
+            </div>
         </div>
     </div>
 </div>
@@ -191,6 +218,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/materialize.min.js"></script>
 <script src="js/lodash.min.js"></script>
+<script src="js/SimplexMyUno.js"></script>
 <script src="js/data.js"></script>
 <script src="js/script.js"></script>
 </body>
