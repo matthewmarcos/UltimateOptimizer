@@ -2,29 +2,24 @@ Vue.config.silent = false;
 Vue.config.devtools = true;
 
 // Juice colored.
-// Transposes the matrix
-const transpose = m => m[0].map((x, i) => m.map(x => x[i]));
-const log = x => console.log(x);
-const foodNames = _.map(foodData, function(food) {
-    return {
-        foodName: food.food.replace(/_/g, ' '),
-        key: food.food,
-        isSelected: false,
-        isAdded: false
-    };
-});
-
 const rootVue = new Vue({
     el: '#app',
 
     data: {
-        appType: 'dietary-problem-solver',
+        appType: 'ultimate-optimizer',
 
         dietarySolver: {
             focusedFood: '', //Food on the display
             solution: [],
             choices: [ ...foodNames ], //Food that the user can pick
             picks: []
+        },
+
+        ultimateOptimizer: {
+            maxFunctions: '',
+            constraints: [{
+                string: ''
+            }]
         }
     },
 
@@ -39,6 +34,20 @@ const rootVue = new Vue({
             return src === this['appType'];
         },
 
+        addConstraint() {
+            // Check if there is an empty string
+            let hasEmptyFunction = !!this.ultimateOptimizer.constraints.filter(x =>  x.string === '').length;
+            if(hasEmptyFunction) {
+                Materialize.toast('Make sure all empty fields are filled out first', 2000);
+                return;
+            }
+            else {
+                this.ultimateOptimizer.constraints.push({ string: '' });
+            }
+        },
+
+
+        // Dietary Solver
         setSelected(food) {
             // For dietary solver problem
             this.dietarySolver.focusedFood = _.find(foodData, s => s.food === food);
@@ -109,8 +118,7 @@ const rootVue = new Vue({
 
             // Create unreferenced copy of the user's selection
             let myPicks = $.extend(true, {}, this.dietarySolver.picks);
-
-            console.log(myPicks);
+            generateTableau(this.dietarySolver.picks);
         }
 
     }

@@ -1,6 +1,16 @@
-// Simplex function here.
+const transpose = m => m[0].map((x, i) => m.map(x => x[i]));
+const log = x => console.log(x);
+const foodNames = _.map(foodData, function(food) {
+    return {
+        foodName: food.food.replace(/_/g, ' '),
+        key: food.food,
+        isSelected: false,
+        isAdded: false
+    };
+});
 
-const generateTableau = (foods) => {
+// Generate Tableau.
+const generateTableau = foods => {
     // Determine number of foodstuff
     const foodCount = foods.length;
 
@@ -48,9 +58,9 @@ const generateTableau = (foods) => {
     const ironMax = 30;
 
 
-
 };
 
-const simplex = (tableau) => {
+// Solve Simplex
+const simplex = tableau => {
 
 };
