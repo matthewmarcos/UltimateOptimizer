@@ -10,11 +10,18 @@ const foodNames = _.map(foodData, function(food) {
 });
 
 const generateTableauU = (functions, toMaximize) => {
-    console.log('To Maximize:');
-    console.log(toMaximize);
+    const toMaximizeExp = /(\+|-)?\d*\.?\d+/;
 
-    console.log('functions');
-    console.log(functions);
+    // Split the maximize expression by spaces
+    let maximizeVar = [ ...toMaximize.split(/[ ]+/g) ];
+
+    // Check if each term on objective function matches the pattern +\d | -\d | \d | decimal
+    let validMaximizeExp = _.every(maximizeVar, variable => toMaximizeExp.test(variable));
+
+
+
+    // console.log('functions');
+    // console.log(functions);
 
 };
 

@@ -16,9 +16,9 @@ const rootVue = new Vue({
         },
 
         ultimateOptimizer: {
-            maxFunctions: '',
+            maxFunction: '1 -2 -3 4',
             constraints: [{
-                string: ''
+                string: '+3 +2 +1 >= -2'
             }]
         }
     },
@@ -44,7 +44,7 @@ const rootVue = new Vue({
         createTableauU() {
         // ultimateOptimizer - Start computation
             // Check if there is an empty string
-            let allValidFunctionStrings = !!this.ultimateOptimizer.constraints.filter(x =>  {
+            let allValidFunctionStrings = !!this.ultimateOptimizer.constraints.filter(x => {
                 return x.string === '';
             }).length;
 

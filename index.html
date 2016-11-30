@@ -223,12 +223,14 @@
                 <div class="col s4">
                     <h5 class="center">Selected</h5>
                     <div class="row">
-                        <div class="collection unano2">
-                            <a href="#!" class="collection-item deletable"
-                            v-for="name in dietarySolver.picks"
-                            v-on:click="removePick(name.food)">
-                                {{name.food.replace(/_/g, ' ')}}
-                            </a>
+                        <div class="col s12">
+                            <div class="collection unano2">
+                                <a href="#!" class="collection-item deletable"
+                                v-for="name in dietarySolver.picks"
+                                v-on:click="removePick(name.food)">
+                                    {{name.food.replace(/_/g, ' ')}}
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
