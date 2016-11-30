@@ -9,6 +9,26 @@ const foodNames = _.map(foodData, function (food) {
     };
 });
 
+// Solve Simplex
+const simplex = (tableauWrapper) => {
+    const tableauData = _.clone(tableauWrapper);
+    let solutions = [];
+
+    let tableau = _.clone(tableauData.tableau);
+    const rowCount = tableauData.rowCount;
+    const colCount = tableauData.colCount;
+    const variableCount = tableauData.varCount;
+    const slackVariableCount = tableauData.slackVariableCount;
+
+    solutions.push(_.clone(tableau));
+
+    console.log('There are ' + variableCount + ' variables');
+    console.log('There are ' + slackVariableCount + ' slack variables');
+    console.log(tableau);
+
+    return solutions;
+};
+
 const generateTableauU = (constraints, toMaximize) => {
     // Split the maximize expression by spaces
     let maximizeVar = [...toMaximize.split(/[ ]+/g)];
@@ -47,8 +67,8 @@ const generateTableauU = (constraints, toMaximize) => {
         return Materialize.toast('Not all constraints have the proper length', 2000);
     }
 
-    const fillCount = constraints.length + 1;
-    const colCount = varCount + fillCount + 1;
+    const fillCount = constraints.length + 1; //How many values to insert for slack variables
+    const colCount = varCount + fillCount + 1; //Total number of columns
     const rowCount = fillCount;
 
     // Convert into tableau
@@ -91,7 +111,10 @@ const generateTableauU = (constraints, toMaximize) => {
     return {
         tableau: tempTableau,
         tableHeaders: tableHeaders,
-        rowHeaders: rowHeaders
+        rowHeaders: rowHeaders,
+        varCount: maximizeVar.length,
+        slackVariableCount: constraints.length,
+        rowCount, colCount
     };
 };
 
@@ -146,9 +169,4 @@ const generateTableauF = foods => {
     const ironMax = 30;
 
 
-};
-
-// Solve Simplex
-const simplex = tableau => {
-    console.log(tableau);
 };

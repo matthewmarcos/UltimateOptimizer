@@ -83,12 +83,15 @@ const rootVue = new Vue({
 
             let functions = this.ultimateOptimizer.constraints.map(x => x.string);
             let startingTableau = generateTableauU(functions, this.ultimateOptimizer.maxFunction);
+
             this.ultimateOptimizer.solutions = [];
+
             this.ultimateOptimizer.tableHeaders = _.clone(startingTableau.tableHeaders);
             this.ultimateOptimizer.rowHeaders = _.clone(startingTableau.rowHeaders);
-            this.ultimateOptimizer.solutions.push(startingTableau.tableau);
+            // this.ultimateOptimizer.solutions.push(startingTableau.tableau);
+            // this.ultimateOptimizer.solutions.push(_.clone(startingTableau.tableau));
             const solution = simplex(startingTableau);
-
+            this.ultimateOptimizer.solutions = _.clone(solution);
         },
 
         deleteConstraint(index) {
