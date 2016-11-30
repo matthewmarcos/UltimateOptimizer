@@ -17,6 +17,7 @@ const rootVue = new Vue({
 
         ultimateOptimizer: {
             maxFunction: '150 175',
+            isMaximize: true,
             solutions: [],
             tableHeaders: [],
             rowHeaders: [],
@@ -81,7 +82,8 @@ const rootVue = new Vue({
 
             // Form checking muna sa mga input ni user bago mag parse
             let functions = this.ultimateOptimizer.constraints.map(x => x.string);
-            let startingTableau = generateTableauU(functions, this.ultimateOptimizer.maxFunction);
+            let startingTableau = generateTableauU(functions,
+                this.ultimateOptimizer.maxFunction, this.ultimateOptimizer.isMaximize);
 
             // Can now clear the solutions array to make room for the new one
             this.ultimateOptimizer.solutions = [];

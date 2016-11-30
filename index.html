@@ -65,6 +65,19 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col s4">
+                    <!-- Switch -->
+                    <div class="switch">
+                        <label>
+                            Minimize
+                            <input v-model="ultimateOptimizer.isMaximize" type="checkbox">
+                            <span class="lever"></span>
+                            Maximize
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="input-field col s10">
                     <input v-model="ultimateOptimizer.maxFunction"
                     id="maximizing-function" type="text" class="">

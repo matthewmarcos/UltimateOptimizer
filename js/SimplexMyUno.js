@@ -96,7 +96,7 @@ const simplex = (tableauWrapper) => {
     return solutions;
 };
 
-const generateTableauU = (constraints, toMaximize) => {
+const generateTableauU = (constraints, toMaximize, isMaximize) => {
     // Split the maximize expression by spaces
     let maximizeVar = [...toMaximize.split(/[ ]+/g)];
 
@@ -109,6 +109,17 @@ const generateTableauU = (constraints, toMaximize) => {
     }
     maximizeVar = maximizeVar.map(x => Number(x));
 
+    // If minimize, negate the function.
+    if(!isMaximize) {
+        maximizeVar = _.map(maximizeVar, (x, key) => {
+            if(key !== maximizeVar.length - 1) {
+                return x * -1
+            }
+            else {
+                return x;
+            }
+        });
+    }
     // check constraints if they have <= and only one of it.
     const allConstraintsHaveSign = _.every(constraints, x => {
         const hasGreaterThan = x.indexOf('<=') !== -1;
