@@ -17,6 +17,9 @@ const rootVue = new Vue({
 
         ultimateOptimizer: {
             maxFunction: '150 175',
+            solutions: [],
+            tableHeaders: [],
+            rowHeaders: [],
             constraints: [{
                 string: '7 11 <= 77'
             },
@@ -79,7 +82,12 @@ const rootVue = new Vue({
             // Form checking muna sa mga input ni user bago mag parse
 
             let functions = this.ultimateOptimizer.constraints.map(x => x.string);
-            generateTableauU(functions, this.ultimateOptimizer.maxFunction);
+            let startingTableau = generateTableauU(functions, this.ultimateOptimizer.maxFunction);
+            this.ultimateOptimizer.solutions = [];
+            this.ultimateOptimizer.tableHeaders = _.clone(startingTableau.tableHeaders);
+            this.ultimateOptimizer.rowHeaders = _.clone(startingTableau.rowHeaders);
+            this.ultimateOptimizer.solutions.push(startingTableau.tableau);
+            const solution = simplex(startingTableau);
 
         },
 
@@ -165,6 +173,7 @@ const rootVue = new Vue({
             // dietarySolver - Solve the function
             // Create unreferenced copy of the user's selection
             let myPicks = $.extend(true, {}, this.dietarySolver.picks);
+
             generateTableauF(this.dietarySolver.picks);
         }
 

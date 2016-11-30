@@ -98,9 +98,28 @@
                     >add constraint</a>
                 </div>
             </div>
-            <div class="row" id="scroll-here">
-
+            <div class="row" id="scroll-here"></div>
+            <!--Print Tableau Solution-->
+            <div class="row" v-for="(tableau, index) in ultimateOptimizer.solutions">
+                <table>
+                    <thead>
+                        <th>Variable</th>
+                        <th v-for="header in ultimateOptimizer.tableHeaders">
+                            {{ header }}
+                        </th>
+                        <th>
+                            Sol
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(row, ind) in tableau">
+                            <td>{{ ultimateOptimizer.rowHeaders[ind] }}</td>
+                            <td v-for="cell in row"> {{ cell }} </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+
 
 
         </div>

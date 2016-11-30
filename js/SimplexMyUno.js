@@ -77,7 +77,22 @@ const generateTableauU = (constraints, toMaximize) => {
         return _.flatten(x);
     });
 
-    return tempTableau;
+    const tableHeaders = [
+        ..._.map(maximizeVar, (x, key) => 'X' + (key + 1)),
+        ..._.map(constraints, (x, key) => 'S' + (key + 1)),
+        'Z'
+    ];
+
+    const rowHeaders = [
+        ..._.map(constraints, (x, key) => 'S' + (key + 1)),
+        'Z'
+    ]
+
+    return {
+        tableau: tempTableau,
+        tableHeaders: tableHeaders,
+        rowHeaders: rowHeaders
+    };
 };
 
 // Generate Tableau for Food solver.
@@ -135,5 +150,5 @@ const generateTableauF = foods => {
 
 // Solve Simplex
 const simplex = tableau => {
-
+    console.log(tableau);
 };
