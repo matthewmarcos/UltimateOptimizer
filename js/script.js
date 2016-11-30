@@ -16,9 +16,18 @@ const rootVue = new Vue({
         },
 
         ultimateOptimizer: {
-            maxFunction: '1 -2 -3 4',
+            maxFunction: '150 175',
             constraints: [{
-                string: '+3 +2 +1 0 >= -2'
+                string: '7 11 <= 77'
+            },
+            {
+                string: '10 8 <= 80'
+            },
+            {
+                string: '1 0 <= 9'
+            },
+            {
+                string: '0 1 <= 6'
             }]
         }
     },

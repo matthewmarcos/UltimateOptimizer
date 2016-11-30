@@ -11,7 +11,7 @@ const foodNames = _.map(foodData, function (food) {
 
 const generateTableauU = (constraints, toMaximize) => {
     // Split the maximize expression by spaces
-    const maximizeVar = [...toMaximize.split(/[ ]+/g)];
+    let maximizeVar = [...toMaximize.split(/[ ]+/g)];
 
     const toMaximizeExp = /(\+|-)?\d*\.?\d+/;
     // Check if each term on objective function matches the pattern +\d | -\d | \d | decimal
@@ -20,10 +20,11 @@ const generateTableauU = (constraints, toMaximize) => {
         return Materialize.toast('Invalid Maximizing Expression', 2000);
 
     }
+    maximizeVar = maximizeVar.map(x => Number(x));
 
-    // check constraints if they have >= and only one of it.
+    // check constraints if they have <= and only one of it.
     const allConstraintsHaveSign = _.every(constraints, x => {
-        const hasGreaterThan = x.indexOf('>=') !== -1;
+        const hasGreaterThan = x.indexOf('<=') !== -1;
         return hasGreaterThan;
     });
 
@@ -45,6 +46,43 @@ const generateTableauU = (constraints, toMaximize) => {
     if(!allConstraintsHaveProperLength) {
         return Materialize.toast('Not all constraints have the proper length', 2000);
     }
+
+    const fillCount = constraints.length + 1;
+    const colCount = varCount + fillCount + 1;
+    const rowCount = fillCount;
+
+    console.log('Maximizing Array');
+    console.log(maximizeVar)
+    console.log('Constraints Array');
+    console.log(constraintsVar);
+    console.log('There are: ' + fillCount + ' extra variables');
+    console.log('There are: ' + colCount + ' cols');
+    console.log('There are: ' + rowCount + ' rows');
+
+    // Convert into tableau
+    let tempTableau = _.clone(constraintsVar);
+    tempTableau.push(_.clone(maximizeVar));
+
+    // Insert the slack variables
+    tempTableau = _.map(tempTableau, (row, index) => {
+        let x = _.clone(row);
+        const insertionArrayLength = colCount - x.length;
+        let insertionArray = Array.apply(null, {
+            length: insertionArrayLength
+        }).map(Function.call, x => 0);
+
+        // Put the 1's in a diagonal
+        insertionArray = _.map(insertionArray, (something, ind) => {
+            if(ind === index) return 1;
+            return 0;
+        });
+
+        x.splice(x.length-1, 0, insertionArray);
+
+        return _.flatten(x);
+    });
+    console.log(tempTableau);
+
 
 };
 
