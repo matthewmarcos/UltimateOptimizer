@@ -80,10 +80,10 @@ const rootVue = new Vue({
             }
 
             // Form checking muna sa mga input ni user bago mag parse
-
             let functions = this.ultimateOptimizer.constraints.map(x => x.string);
             let startingTableau = generateTableauU(functions, this.ultimateOptimizer.maxFunction);
 
+            // Can now clear the solutions array to make room for the new one
             this.ultimateOptimizer.solutions = [];
 
             this.ultimateOptimizer.tableHeaders = _.clone(startingTableau.tableHeaders);

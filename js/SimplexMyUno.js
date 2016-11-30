@@ -15,8 +15,8 @@ const simplex = (tableauWrapper) => {
     let solutions = [];
 
     let tableau = _.clone(tableauData.tableau);
-    const rowCount = tableauData.rowCount;
-    const colCount = tableauData.colCount;
+    const rowCount = tableau.length;
+    const colCount = tableau[0].length;
     const variableCount = tableauData.varCount;
     const slackVariableCount = tableauData.slackVariableCount;
 
@@ -24,7 +24,74 @@ const simplex = (tableauWrapper) => {
 
     console.log('There are ' + variableCount + ' variables');
     console.log('There are ' + slackVariableCount + ' slack variables');
+    console.log('There are ' + colCount + ' columns');
+    console.log('There are ' + rowCount + ' rows');
     console.log(tableau);
+
+    const hasNegative = () => {
+        let smallest = _.clone(tableau[tableau.length - 1]).sort((x, y) => x - y)[0];
+        log('smallest: ' + smallest)
+        return smallest < 0;
+    }
+    // START THE SIMPLEX
+
+    while(hasNegative()) {
+         // Get the pivot column
+        let rowToSearch = tableau[rowCount - 1].slice(0, tableau[rowCount - 1].length - 1);
+        let minData = _.reduce(rowToSearch, (acc, value, index) => {
+            if(value < acc.minValue) {
+                return {
+                    minIndex: index,
+                    minValue: value
+                };
+            }
+            return acc;
+        }, {
+            minIndex: 0,
+            minValue: rowToSearch[0]
+        });
+
+        const minValue = minData.minValue; // Smallest value in bottom row
+        const pivotElementCol = minData.minIndex; // Index of the pivot column
+
+        // Get pivot column
+        const pivotColumn = transpose(_.clone(tableau))[pivotElementCol];
+        const numeratorColumn = transpose(_.clone(tableau))[colCount - 1];
+
+        console.log('Numerator column:')
+        console.log(numeratorColumn);
+        console.log('pivotColumn')
+        console.log(pivotColumn);
+
+        const trArray = _.map(numeratorColumn, (x, key) => {
+            return x/pivotColumn[key];
+        });
+
+        let smallestNonzero = _.clone(trArray).sort((x, y) => x - y).filter(x => x > 0)[0]
+        let pivotElementRow = trArray.indexOf(smallestNonzero);
+
+        // Normalize the pivot row
+        let pivotElement = tableau[pivotElementRow][pivotElementCol];
+        tableau[pivotElementRow] = tableau[pivotElementRow].map(x => (x / pivotElement).toFixed(4));
+
+        // Normalize the entire column:
+        tableau = _.map(tableau, (row, rowNo) => {
+            if(rowNo === pivotElementRow) {
+                return row;
+            }
+            const multiplier = row[pivotElementCol]; //divide to pivot row
+            const pivotRowCopy = _.clone(tableau[pivotElementRow])
+                .map(x => x * multiplier);
+            const newRow = _.map(pivotRowCopy, (x, index) => {
+                return (row[index] - x).toFixed(4);
+            });
+
+            return newRow;
+        });
+
+
+        solutions.push(_.clone(tableau));
+    }
 
     return solutions;
 };
