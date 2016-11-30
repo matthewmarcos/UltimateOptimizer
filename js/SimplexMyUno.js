@@ -51,17 +51,12 @@ const generateTableauU = (constraints, toMaximize) => {
     const colCount = varCount + fillCount + 1;
     const rowCount = fillCount;
 
-    console.log('Maximizing Array');
-    console.log(maximizeVar)
-    console.log('Constraints Array');
-    console.log(constraintsVar);
-    console.log('There are: ' + fillCount + ' extra variables');
-    console.log('There are: ' + colCount + ' cols');
-    console.log('There are: ' + rowCount + ' rows');
-
     // Convert into tableau
     let tempTableau = _.clone(constraintsVar);
-    tempTableau.push(_.clone(maximizeVar));
+    let tempMaxVar = _.clone(maximizeVar)
+    tempMaxVar = tempMaxVar.map(x => -1 * x);
+    tempMaxVar.push(0);
+    tempTableau.push(tempMaxVar);
 
     // Insert the slack variables
     tempTableau = _.map(tempTableau, (row, index) => {
@@ -81,9 +76,8 @@ const generateTableauU = (constraints, toMaximize) => {
 
         return _.flatten(x);
     });
-    console.log(tempTableau);
 
-
+    return tempTableau;
 };
 
 // Generate Tableau for Food solver.
