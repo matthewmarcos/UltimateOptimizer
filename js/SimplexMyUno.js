@@ -1,6 +1,6 @@
 const transpose = m => m[0].map((x, i) => m.map(x => x[i]));
 const log = x => console.log(x);
-const foodNames = _.map(foodData, function(food) {
+const foodNames = _.map(foodData, function (food) {
     return {
         foodName: food.food.replace(/_/g, ' '),
         key: food.food,
@@ -9,19 +9,42 @@ const foodNames = _.map(foodData, function(food) {
     };
 });
 
-const generateTableauU = (functions, toMaximize) => {
-    const toMaximizeExp = /(\+|-)?\d*\.?\d+/;
-
+const generateTableauU = (constraints, toMaximize) => {
     // Split the maximize expression by spaces
-    let maximizeVar = [ ...toMaximize.split(/[ ]+/g) ];
+    const maximizeVar = [...toMaximize.split(/[ ]+/g)];
 
+    const toMaximizeExp = /(\+|-)?\d*\.?\d+/;
     // Check if each term on objective function matches the pattern +\d | -\d | \d | decimal
-    let validMaximizeExp = _.every(maximizeVar, variable => toMaximizeExp.test(variable));
+    const validMaximizeExp = _.every(maximizeVar, variable => toMaximizeExp.test(variable));
+    if (!validMaximizeExp) {
+        return Materialize.toast('Invalid Maximizing Expression', 2000);
 
+    }
 
+    // check constraints if they have >= and only one of it.
+    const allConstraintsHaveSign = _.every(constraints, x => {
+        const hasGreaterThan = x.indexOf('>=') !== -1;
+        return hasGreaterThan;
+    });
 
-    // console.log('functions');
-    // console.log(functions);
+    if(!allConstraintsHaveSign) {
+        return Materialize.toast('Please check constraints for proper format', 2000);
+    }
+
+    // Check if all the constraints have proper format, length
+
+    // Create empty array
+    let constraintsVar =  constraints.map(x => x.split(/[ ]+/g).map(y => Number(y)).filter(z => !isNaN(z)));
+
+    // Get count of variables
+    const varCount = maximizeVar.length
+    const allConstraintsHaveProperLength = _.every(constraintsVar, x => {
+        return x.length - 1 === varCount;
+    });
+
+    if(!allConstraintsHaveProperLength) {
+        return Materialize.toast('Not all constraints have the proper length', 2000);
+    }
 
 };
 
@@ -31,7 +54,9 @@ const generateTableauF = foods => {
     const foodCount = foods.length;
 
     // Generate Variables
-    let variables = Array.apply(null, {length: foodCount}).map(Function.call, x => 'food' + (x + 1));
+    let variables = Array.apply(null, {
+        length: foodCount
+    }).map(Function.call, x => 'food' + (x + 1));
 
     // Minimize price
     const priceArray = foods.map(x => x.pricePerServing);
