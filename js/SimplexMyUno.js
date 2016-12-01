@@ -112,20 +112,11 @@ const simplex = (tableauWrapper) => {
 
         let valuesCopy = _.clone(values);
 
-        // _.assignIn(values, tempValues);
         _.forEach(tempValues, (val, key) => {
             valuesCopy[key] = val;
         });
         log(valuesCopy);
         values = valuesCopy;
-
-
-        // console.log(`tableHeaders: ${tableHeaders}`);
-        // console.log(`rowHeaders: ${rowHeaders}`);
-        // console.log(`assignToRows: ${transpose(tableau)[colCount - 1]}`)
-
-        // console.log(`tempValues: ${JSON.stringify(tempValues)}`);
-        // console.log(values);
 
         solutions.push({
             tableau: _.clone(tableau),
