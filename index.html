@@ -83,15 +83,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s10">
+                <div class="col s2 flow-text Heading h1">
+                    <span class="black-text text-darken-2">Z =</span>
+                </div>
+                <div class="input-field col s8">
                     <input v-model="ultimateOptimizer.maxFunction"
-                    id="maximizing-function" type="text" class="">
+                    id="maximizing-function" type="text" class="left">
                     <label class="active" for="maximizing-function">
                         Maximization Function (Format: +8 -2 -6)
                     </label>
-                </div>
-                <div class="col s2 flow-text Heading h1">
-                    <span class="black-text text-darken-2">= Z</span>
                 </div>
             </div>
             <div class="row" v-for="(constraint, index) in ultimateOptimizer.constraints">

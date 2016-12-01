@@ -1,5 +1,5 @@
 const transpose = m => m[0].map((x, i) => m.map(x => x[i]));
-const log = x => console.log(x);
+const log = console.log;
 const foodNames = _.map(foodData, function (food) {
     return {
         foodName: food.food.replace(/_/g, ' '),
@@ -73,12 +73,16 @@ const simplex = (tableauWrapper) => {
         // Get pivot column
         const pivotColumn = transpose(_.clone(tableau))[pivotElementCol];
         const numeratorColumn = transpose(_.clone(tableau))[colCount - 1];
-
+        log(numeratorColumn);
+        log(pivotColumn);
         const trArray = _.map(numeratorColumn, (x, key) => {
             return x/pivotColumn[key];
         });
 
-        let smallestNonzero = _.clone(trArray).sort((x, y) => x - y).filter(x => x > 0)[0]
+        log(trArray)
+        log("")
+
+        let smallestNonzero = _.clone(trArray).sort((x, y) => x - y).filter(x => (x > 0))[0]
         if(!smallestNonzero) {
             // Infeasible
             Materialize.toast('There is no solution to your problem', 2000);
@@ -97,7 +101,7 @@ const simplex = (tableauWrapper) => {
             }
             const multiplier = row[pivotElementCol]; //divide to pivot row
             const pivotRowCopy = _.clone(tableau[pivotElementRow])
-                .map(x => x * multiplier);
+                .map(x => (x * multiplier).toFixed(4));
             const newRow = _.map(pivotRowCopy, (x, index) => {
                 return (row[index] - x).toFixed(4);
             });
@@ -145,15 +149,27 @@ const generateTableauU = (constraints, toMaximize, isMaximize) => {
             return x * -1
         });
     }
-    // check constraints if they have <= and only one of it.
+    // check constraints if they have <= or >=.
     const allConstraintsHaveSign = _.every(constraints, x => {
         const hasGreaterThan = x.indexOf('<=') !== -1;
-        return hasGreaterThan;
+        const hasLessThan = x.indexOf('>=') !== -1;
+        return (hasGreaterThan && !hasLessThan) || (!hasGreaterThan && hasLessThan);
     });
 
     if(!allConstraintsHaveSign) {
         return Materialize.toast('Please check constraints for proper format', 2000);
     }
+
+    // Get sign for slack variables
+    const slackVariableSign = _.map(constraints, (x, index) => {
+        if(x.indexOf('<=') !== -1) {
+            return 1
+        }
+        else if(x.indexOf('>=') !== -1) {
+            return -1
+        }
+    });
+    slackVariableSign.push(1); //For the Z
 
     // Check if all the constraints have proper format, length
     // Create empty array
@@ -190,7 +206,7 @@ const generateTableauU = (constraints, toMaximize, isMaximize) => {
 
         // Put the 1's in a diagonal
         insertionArray = _.map(insertionArray, (something, ind) => {
-            if(ind === index) return 1;
+            if(ind === index) return slackVariableSign[ind];
             return 0;
         });
 
