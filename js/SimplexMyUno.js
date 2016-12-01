@@ -30,9 +30,8 @@ const simplex = (tableauWrapper) => {
     //So we know the name of the variable to replace in the object
     let tableHeaders = _.clone(tableauData.tableHeaders);
 
-    console.log(rowHeaders);
-    console.log(tableHeaders);
-
+    console.log(`rowHeaders: ${rowHeaders}`);
+    console.log(`tableHeaders: ${tableHeaders}`);
 
     const hasNegative = () => {
         let smallest = _.clone(tableau[tableau.length - 1]).sort((x, y) => x - y)[0];
@@ -40,14 +39,17 @@ const simplex = (tableauWrapper) => {
     }
 
     let values = _.fromPairs(_.zip(rowHeaders, transpose(tableau)[colCount - 1]))
-    variableNames.forEach(name => {
+    _.forEach(variableNames, name => {
         values[name] = 0;
     });
+
     // START THE SIMPLEX
     solutions.push( {
         tableau: _.clone(tableau),
-        variables: values
+        variables: _.clone(values)
     });
+
+    console.log(values);
 
     while(hasNegative()) {
          // Get the pivot column
@@ -103,10 +105,31 @@ const simplex = (tableauWrapper) => {
             return newRow;
         });
 
+        // Reset the name in the rowHeaders for updating of the variables
+        rowHeaders[pivotElementRow] = tableHeaders[pivotElementCol]
+        // Update the value
+        const tempValues = _.fromPairs(_.zip(rowHeaders, transpose(tableau)[colCount - 1]))
+
+        let valuesCopy = _.clone(values);
+
+        // _.assignIn(values, tempValues);
+        _.forEach(tempValues, (val, key) => {
+            valuesCopy[key] = val;
+        });
+        log(valuesCopy);
+        values = valuesCopy;
+
+
+        // console.log(`tableHeaders: ${tableHeaders}`);
+        // console.log(`rowHeaders: ${rowHeaders}`);
+        // console.log(`assignToRows: ${transpose(tableau)[colCount - 1]}`)
+
+        // console.log(`tempValues: ${JSON.stringify(tempValues)}`);
+        // console.log(values);
 
         solutions.push({
             tableau: _.clone(tableau),
-            variables: _.clone(values)
+            variables: _.clone(valuesCopy)
         });
     }
 
