@@ -98,7 +98,10 @@ const simplex = (tableauWrapper) => {
         });
 
 
-        solutions.push(_.clone(tableau));
+        solutions.push({
+            tableau: _.clone(tableau),
+            variables: {}
+        });
     }
 
     return solutions;
