@@ -132,6 +132,10 @@
                         </tr>
                     </tbody>
                 </table>
+                <!--For the values of the slack variables and other stuff-->
+                <div v-for="(value, key) in tableau.variables">
+                    {{ key }} : {{ value }}
+                </div>
             </div>
 
 

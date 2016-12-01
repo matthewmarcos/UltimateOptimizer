@@ -20,23 +20,34 @@ const simplex = (tableauWrapper) => {
     const variableCount = tableauData.varCount;
     const slackVariableCount = tableauData.slackVariableCount;
 
-    const constraintNames = tableauData.rowHeaders;
+    let constraintNames = tableauData.rowHeaders;
     const variableNames = tableauData.variableNames;
 
-    solutions.push(_.clone(tableau));
+    let rowHeaders = [ //Initially rowHeaders are named after the constraints.
+        ...constraintNames
+    ];
 
-    console.log('There are ' + variableCount + ' variables');
-    console.log('There are ' + slackVariableCount + ' slack variables');
-    console.log('There are ' + colCount + ' columns');
-    console.log('There are ' + rowCount + ' rows');
-    console.log(tableau);
+    //So we know the name of the variable to replace in the object
+    let tableHeaders = _.clone(tableauData.tableHeaders);
+
+    console.log(rowHeaders);
+    console.log(tableHeaders);
+
 
     const hasNegative = () => {
         let smallest = _.clone(tableau[tableau.length - 1]).sort((x, y) => x - y)[0];
-        log('smallest: ' + smallest)
         return smallest < 0;
     }
+
+    let values = _.fromPairs(_.zip(rowHeaders, transpose(tableau)[colCount - 1]))
+    variableNames.forEach(name => {
+        values[name] = 0;
+    });
     // START THE SIMPLEX
+    solutions.push( {
+        tableau: _.clone(tableau),
+        variables: values
+    });
 
     while(hasNegative()) {
          // Get the pivot column
@@ -60,11 +71,6 @@ const simplex = (tableauWrapper) => {
         // Get pivot column
         const pivotColumn = transpose(_.clone(tableau))[pivotElementCol];
         const numeratorColumn = transpose(_.clone(tableau))[colCount - 1];
-
-        console.log('Numerator column:')
-        console.log(numeratorColumn);
-        console.log('pivotColumn')
-        console.log(pivotColumn);
 
         const trArray = _.map(numeratorColumn, (x, key) => {
             return x/pivotColumn[key];
@@ -100,7 +106,7 @@ const simplex = (tableauWrapper) => {
 
         solutions.push({
             tableau: _.clone(tableau),
-            variables: {}
+            variables: _.clone(values)
         });
     }
 
@@ -137,7 +143,6 @@ const generateTableauU = (constraints, toMaximize, isMaximize) => {
     }
 
     // Check if all the constraints have proper format, length
-
     // Create empty array
     let constraintsVar =  constraints.map(x => x.split(/[ ]+/g).map(y => Number(y)).filter(z => !isNaN(z)));
 
@@ -209,6 +214,9 @@ const generateTableauF = input => {
     // Determine number of foodstuff
     const foodCount = foods.length;
     const constraintCount = 23 + foodCount * 2;
+    const foodNameArray = foods.map(x => x.food);
+
+    console.log(`foodNameArray: ${foodNameArray}`);
 
     // Generate Variables
     let insertionArray = Array.apply(null, {
