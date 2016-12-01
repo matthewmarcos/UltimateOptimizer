@@ -287,7 +287,7 @@ const generateTableauF = input => {
     });
 
     const minimizingFunctionRow = [
-        ...priceArray,
+        ...priceArray.map(x => -x),
         ...Array.apply(null, {
             // -1 for the var, -1 for the max servings
             length: colCount - priceArray.length - 1
