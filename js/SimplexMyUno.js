@@ -227,14 +227,18 @@ const generateTableauF = input => {
     const foods = _.clone(input);
     // Determine number of foodstuff
     const foodCount = foods.length;
-    const constraintCount = 23 + foodCount * 2;
+    // Constraints:
+    // 11 for maximizing nutrients
+    // 11 for minimizing nutrients
+    // foodCount max servings
+    // foodCount min servings
+    // price Min <= di na kailangan kasi may min servings na?
+    const constraintCount = 23 + foodCount * 2; //Sinama na ang Z?
     const foodNameArray = foods.map(x => x.food);
-
-    console.log(`foodNameArray: ${foodNameArray}`);
 
     // Generate Variables
     let insertionArray = Array.apply(null, {
-        length: constraintCount + 1 // + 1 for the Z
+        length: constraintCount
     }).map(Function.call, x => 0);
 
     // Objective function
@@ -281,7 +285,6 @@ const generateTableauF = input => {
 
     const newRowCount = constraintCount + 1;
     const colCount = foods.length + insertionArray.length + 1;
-    console.log(`colLength: ${colCount}`);
 
      const minServingConstraints = _.map(priceArray, (variable, index) => {
         return [
@@ -320,32 +323,72 @@ const generateTableauF = input => {
         0 // Initial solution
     ];
 
+    // let tempTableau =_.map(_.clone([ // Remove reference to insertionArray before mutation
+    //     // Constraints for lessthanequalto
+    //     [ ...caloriesArray, ...insertionArray, calorieMax ],
+    //     [ ...cholesterolArray, ...insertionArray, cholesterolMax ],
+    //     [ ...totalFatArray, ...insertionArray, totalFatMax ],
+    //     [ ...sodiumArray, ...insertionArray, sodiumMax ],
+    //     [ ...carbohydratesArray, ...insertionArray, carbohydratesMax ],
+    //     [ ...dietaryFiberArray, ...insertionArray, dietaryFiberMax ],
+    //     [ ...proteinArray, ...insertionArray, proteinMax ],
+    //     [ ...vitAArray, ...insertionArray, vitAMax ],
+    //     [ ...vitCArray, ...insertionArray, vitCMax ],
+    //     [ ...calciumArray, ...insertionArray, calciumMax ],
+    //     [ ...ironArray, ...insertionArray, ironMax ],
+
+    //     // Negated version for the minimums
+    //     [ ...caloriesArray.map(x => -1 * x), ...insertionArray, -caloriesMin ],
+    //     [ ...cholesterolArray.map(x => -1 * x), ...insertionArray, -cholesterolMin ],
+    //     [ ...totalFatArray.map(x => -1 * x), ...insertionArray, -totalFatMin ],
+    //     [ ...sodiumArray.map(x => -1 * x), ...insertionArray, -sodiumMin ],
+    //     [ ...carbohydratesArray.map(x => -1 * x), ...insertionArray, -carbohydratesMin ],
+    //     [ ...dietaryFiberArray.map(x => -1 * x), ...insertionArray, -dietaryFiberMin ],
+    //     [ ...proteinArray.map(x => -1 * x), ...insertionArray, -proteinMin ],
+    //     [ ...vitAArray.map(x => -1 * x), ...insertionArray, -vitAMin ],
+    //     [ ...vitCArray.map(x => -1 * x), ...insertionArray, -vitCMin ],
+    //     [ ...calciumArray.map(x => -1 * x), ...insertionArray, -calciumMin ],
+    //     [ ...ironArray.map(x => -1 * x), ...insertionArray, -ironMin ],
+
+    //     ...minServingConstraints, //min Servings
+    //     ...maxServingConstraints, //maxServings
+    //     minimizingFunctionRow //Function to minimize
+
+    // ]), (row, index) => {
+    //     let x = _.clone(row);
+    //     x[index + foodCount] = 1;
+    //     return x;
+    // });
+
+
+
+
     let tempTableau =_.map(_.clone([ // Remove reference to insertionArray before mutation
         // Constraints for lessthanequalto
-        [ ...caloriesArray, ...insertionArray, calorieMax ],
-        [ ...cholesterolArray, ...insertionArray, cholesterolMax ],
-        [ ...totalFatArray, ...insertionArray, totalFatMax ],
-        [ ...sodiumArray, ...insertionArray, sodiumMax ],
-        [ ...carbohydratesArray, ...insertionArray, carbohydratesMax ],
-        [ ...dietaryFiberArray, ...insertionArray, dietaryFiberMax ],
-        [ ...proteinArray, ...insertionArray, proteinMax ],
-        [ ...vitAArray, ...insertionArray, vitAMax ],
-        [ ...vitCArray, ...insertionArray, vitCMax ],
-        [ ...calciumArray, ...insertionArray, calciumMax ],
-        [ ...ironArray, ...insertionArray, ironMax ],
+        [ ...caloriesArray.map(x => -x), ...insertionArray, -calorieMax ],
+        [ ...cholesterolArray.map(x => -x), ...insertionArray, -cholesterolMax ],
+        [ ...totalFatArray.map(x => -x), ...insertionArray, -totalFatMax ],
+        [ ...sodiumArray.map(x => -x), ...insertionArray, -sodiumMax ],
+        [ ...carbohydratesArray.map(x => -x), ...insertionArray, -carbohydratesMax ],
+        [ ...dietaryFiberArray.map(x => -x), ...insertionArray, -dietaryFiberMax ],
+        [ ...proteinArray.map(x => -x), ...insertionArray, -proteinMax ],
+        [ ...vitAArray.map(x => -x), ...insertionArray, -vitAMax ],
+        [ ...vitCArray.map(x => -x), ...insertionArray, -vitCMax ],
+        [ ...calciumArray.map(x => -x), ...insertionArray, -calciumMax ],
+        [ ...ironArray.map(x => -x), ...insertionArray, -ironMax ],
 
         // Negated version for the minimums
-        [ ...caloriesArray.map(x => -1 * x), ...insertionArray, -caloriesMin ],
-        [ ...cholesterolArray.map(x => -1 * x), ...insertionArray, -cholesterolMin ],
-        [ ...totalFatArray.map(x => -1 * x), ...insertionArray, -totalFatMin ],
-        [ ...sodiumArray.map(x => -1 * x), ...insertionArray, -sodiumMin ],
-        [ ...carbohydratesArray.map(x => -1 * x), ...insertionArray, -carbohydratesMin ],
-        [ ...dietaryFiberArray.map(x => -1 * x), ...insertionArray, -dietaryFiberMin ],
-        [ ...proteinArray.map(x => -1 * x), ...insertionArray, -proteinMin ],
-        [ ...vitAArray.map(x => -1 * x), ...insertionArray, -vitAMin ],
-        [ ...vitCArray.map(x => -1 * x), ...insertionArray, -vitCMin ],
-        [ ...calciumArray.map(x => -1 * x), ...insertionArray, -calciumMin ],
-        [ ...ironArray.map(x => -1 * x), ...insertionArray, -ironMin ],
+        [ ...caloriesArray, ...insertionArray, caloriesMin ],
+        [ ...cholesterolArray, ...insertionArray, cholesterolMin ],
+        [ ...totalFatArray, ...insertionArray, totalFatMin ],
+        [ ...sodiumArray, ...insertionArray, sodiumMin ],
+        [ ...carbohydratesArray, ...insertionArray, carbohydratesMin ],
+        [ ...dietaryFiberArray, ...insertionArray, dietaryFiberMin ],
+        [ ...proteinArray, ...insertionArray, proteinMin ],
+        [ ...vitAArray, ...insertionArray, vitAMin ],
+        [ ...vitCArray, ...insertionArray, vitCMin ],
+        [ ...calciumArray, ...insertionArray, calciumMin ],
+        [ ...ironArray, ...insertionArray, ironMin ],
 
         ...minServingConstraints, //min Servings
         ...maxServingConstraints, //maxServings
@@ -357,7 +400,16 @@ const generateTableauF = input => {
         return x;
     });
 
-    let solutions = [];
+
+
+
+
+
+
+
+
+
+
 /*
     Schema of object to pass to simplex method
     {
@@ -369,4 +421,30 @@ const generateTableauF = input => {
         tableHeaders
     }
 */
+    // Generate Row Headers
+    // Generate Variable Names
+    const variableNames = _.map(foodNameArray , (name, index) => `X${index + 1}`);
+
+    let rowHeaders = _.map(insertionArray, (x, index) => `S${index + 1}`);
+    rowHeaders[rowHeaders.length - 1] = 'Z';
+
+    const tableHeaders = [
+        ...variableNames,
+        ...rowHeaders
+    ];
+
+    // Generate Table Headers
+
+    const toSimplex = {
+        tableau: tempTableau,
+        varCount: foodCount,
+        slackVariableCount: constraintCount,
+        rowHeaders,
+        variableNames,
+        tableHeaders
+    }
+
+    // console.log(tempTableau);
+    const f = simplex(toSimplex);
+    console.log(f);
 };

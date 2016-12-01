@@ -6,8 +6,8 @@ const rootVue = new Vue({
     el: '#app',
 
     data: {
-        appType: 'ultimate-optimizer',
-        // appType: 'dietary-problem-solver',
+        // appType: 'ultimate-optimizer',
+        appType: 'dietary-problem-solver',
 
         dietarySolver: {
             focusedFood: '', //Food on the display
@@ -178,9 +178,12 @@ const rootVue = new Vue({
         optimizeFood() {
             // dietarySolver - Solve the function
             // Create unreferenced copy of the user's selection
-            let myPicks = $.extend(true, {}, this.dietarySolver.picks);
-
-            generateTableauF(this.dietarySolver.picks);
+            let myPicks = _.clone(this.dietarySolver.picks);
+            if(myPicks.length === 0) {
+                Materialize.toast('No food selected', 2000);
+                return;
+            }
+            generateTableauF(myPicks);
         }
 
     }
@@ -196,4 +199,6 @@ $(_ => {
     });
 
     $('.modal').modal();
-})
+    $('.tooltipped').tooltip({delay: 50});
+
+});
