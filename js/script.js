@@ -91,10 +91,10 @@ const rootVue = new Vue({
 
             this.ultimateOptimizer.tableHeaders = _.clone(startingTableau.tableHeaders);
             this.ultimateOptimizer.rowHeaders = _.clone(startingTableau.rowHeaders);
-            // this.ultimateOptimizer.solutions.push(startingTableau.tableau);
-            // this.ultimateOptimizer.solutions.push(_.clone(startingTableau.tableau));
+
             const solution = simplex(startingTableau);
             this.ultimateOptimizer.solutions = _.clone(solution);
+            Materialize.toast('Success!', 2000);
         },
 
         deleteConstraint(index) {

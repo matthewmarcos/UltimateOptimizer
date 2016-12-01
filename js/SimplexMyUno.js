@@ -357,7 +357,16 @@ const generateTableauF = input => {
         return x;
     });
 
-
-    console.log(tempTableau);
-
+    let solutions = [];
+/*
+    Schema of object to pass to simplex method
+    {
+        tableau
+        varCount
+        slackVariableCount
+        rowHeaders
+        variableNames
+        tableHeaders
+    }
+*/
 };
