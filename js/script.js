@@ -194,4 +194,6 @@ $(_ => {
             scrollTop: ($("#scroll-here").offset().top + $("#scroll-here").height() - $(window).height())
         }, 250);
     });
+
+    $('.modal').modal();
 })
