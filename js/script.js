@@ -6,8 +6,8 @@ const rootVue = new Vue({
     el: '#app',
 
     data: {
-        // appType: 'ultimate-optimizer',
-        appType: 'dietary-problem-solver',
+        appType: 'ultimate-optimizer',
+        // appType: 'dietary-problem-solver',
 
         dietarySolver: {
             focusedFood: '', //Food on the display

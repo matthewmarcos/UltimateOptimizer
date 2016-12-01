@@ -126,12 +126,16 @@
                         </th>
                     </thead>
                     <tbody>
-                        <tr v-for="(row, ind) in tableau">
+                        <tr v-for="(row, ind) in tableau.tableau">
                             <td>{{ ultimateOptimizer.rowHeaders[ind] }}</td>
                             <td v-for="cell in row"> {{ cell }} </td>
                         </tr>
                     </tbody>
                 </table>
+                <!--For the values of the slack variables and other stuff-->
+                <div v-for="(value, key) in tableau.variables">
+                    {{ key }} : {{ value }}
+                </div>
             </div>
 
 
