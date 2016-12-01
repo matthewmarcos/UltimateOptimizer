@@ -205,28 +205,28 @@ const generateTableauF = input => {
     const foods = _.clone(input);
     // Determine number of foodstuff
     const foodCount = foods.length;
-    const constraintCount = 22 + foodCount * 2;
+    const constraintCount = 23 + foodCount * 2;
 
     // Generate Variables
-    let variables = Array.apply(null, {
-        length: foodCount
-    }).map(Function.call, x => 'food' + (x + 1));
+    let insertionArray = Array.apply(null, {
+        length: constraintCount + 1 // + 1 for the Z
+    }).map(Function.call, x => 0);
 
     // Objective function
-    const priceArray = foods.map(x => x.pricePerServing);
+    let priceArray = foods.map(x => x.pricePerServing);
 
     // constraints
-    const caloriesArray = foods.map(x => x.calories);
-    const cholesterolArray = foods.map(x => x.cholesterol);
-    const totalFatArray = foods.map(x => x.totalFat);
-    const sodiumArray = foods.map(x => x.sodium);
-    const carbohydratesArray = foods.map(x => x.carbohydrates);
-    const dietaryFiberArray = foods.map(x => x.dietaryFiber);
-    const proteinArray = foods.map(x => x.protein);
-    const vitAArray = foods.map(x => x.vitA);
-    const vitCArray = foods.map(x => x.vitC);
-    const calciumArray = foods.map(x => x.calcium);
-    const ironArray = foods.map(x => x.iron);
+    let caloriesArray = foods.map(x => x.calories);
+    let cholesterolArray = foods.map(x => x.cholesterol);
+    let totalFatArray = foods.map(x => x.totalFat);
+    let sodiumArray = foods.map(x => x.sodium);
+    let carbohydratesArray = foods.map(x => x.carbohydrates);
+    let dietaryFiberArray = foods.map(x => x.dietaryFiber);
+    let proteinArray = foods.map(x => x.protein);
+    let vitAArray = foods.map(x => x.vitA);
+    let vitCArray = foods.map(x => x.vitC);
+    let calciumArray = foods.map(x => x.calcium);
+    let ironArray = foods.map(x => x.iron);
 
     const priceMin = 0;
 
@@ -254,5 +254,85 @@ const generateTableauF = input => {
     const calciumMax = 1600;
     const ironMax = 30;
 
+    const newRowCount = constraintCount + 1;
+    const colCount = foods.length + insertionArray.length + 1;
+    console.log(`colLength: ${colCount}`);
+
+     const minServingConstraints = _.map(priceArray, (variable, index) => {
+        return [
+            ...Array.apply(null, {
+                length: index
+            }).map(Function.call, x => 0),
+            -1, // We negate because we want greater than 0 servings
+            ...Array.apply(null, {
+                // -1 for the var, -1 for the min servings
+                length: colCount - index - 2
+            }).map(Function.call, x => 0),
+            -1 // min servings
+        ];
+    });
+
+    const maxServingConstraints = _.map(priceArray, (variable, index) => {
+        return [
+            ...Array.apply(null, {
+                length: index
+            }).map(Function.call, x => 0),
+            1, // We negate because we want greater than 0 servings
+            ...Array.apply(null, {
+                // -1 for the var, -1 for the max servings
+                length: colCount - index - 2
+            }).map(Function.call, x => 0),
+            10 // max servings
+        ];
+    });
+
+    const minimizingFunctionRow = [
+        ...priceArray,
+        ...Array.apply(null, {
+            // -1 for the var, -1 for the max servings
+            length: colCount - priceArray.length - 1
+        }).map(Function.call, x => 0),
+        0 // Initial solution
+    ];
+
+    let tempTableau =_.map(_.clone([ // Remove reference to insertionArray before mutation
+        // Constraints for lessthanequalto
+        [ ...caloriesArray, ...insertionArray, calorieMax ],
+        [ ...cholesterolArray, ...insertionArray, cholesterolMax ],
+        [ ...totalFatArray, ...insertionArray, totalFatMax ],
+        [ ...sodiumArray, ...insertionArray, sodiumMax ],
+        [ ...carbohydratesArray, ...insertionArray, carbohydratesMax ],
+        [ ...dietaryFiberArray, ...insertionArray, dietaryFiberMax ],
+        [ ...proteinArray, ...insertionArray, proteinMax ],
+        [ ...vitAArray, ...insertionArray, vitAMax ],
+        [ ...vitCArray, ...insertionArray, vitCMax ],
+        [ ...calciumArray, ...insertionArray, calciumMax ],
+        [ ...ironArray, ...insertionArray, ironMax ],
+
+        // Negated version for the minimums
+        [ ...caloriesArray.map(x => -1 * x), ...insertionArray, -caloriesMin ],
+        [ ...cholesterolArray.map(x => -1 * x), ...insertionArray, -cholesterolMin ],
+        [ ...totalFatArray.map(x => -1 * x), ...insertionArray, -totalFatMin ],
+        [ ...sodiumArray.map(x => -1 * x), ...insertionArray, -sodiumMin ],
+        [ ...carbohydratesArray.map(x => -1 * x), ...insertionArray, -carbohydratesMin ],
+        [ ...dietaryFiberArray.map(x => -1 * x), ...insertionArray, -dietaryFiberMin ],
+        [ ...proteinArray.map(x => -1 * x), ...insertionArray, -proteinMin ],
+        [ ...vitAArray.map(x => -1 * x), ...insertionArray, -vitAMin ],
+        [ ...vitCArray.map(x => -1 * x), ...insertionArray, -vitCMin ],
+        [ ...calciumArray.map(x => -1 * x), ...insertionArray, -calciumMin ],
+        [ ...ironArray.map(x => -1 * x), ...insertionArray, -ironMin ],
+
+        ...minServingConstraints, //min Servings
+        ...maxServingConstraints, //maxServings
+        minimizingFunctionRow //Function to minimize
+
+    ]), (row, index) => {
+        let x = _.clone(row);
+        x[index + foodCount] = 1;
+        return x;
+    });
+
+
+    console.log(tempTableau);
 
 };
