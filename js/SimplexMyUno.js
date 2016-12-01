@@ -30,8 +30,8 @@ const simplex = (tableauWrapper) => {
     //So we know the name of the variable to replace in the object
     let tableHeaders = _.clone(tableauData.tableHeaders);
 
-    console.log(`rowHeaders: ${rowHeaders}`);
-    console.log(`tableHeaders: ${tableHeaders}`);
+    // console.log(`rowHeaders: ${rowHeaders}`);
+    // console.log(`tableHeaders: ${tableHeaders}`);
 
     const hasNegative = () => {
         let smallest = _.clone(tableau[tableau.length - 1]).sort((x, y) => x - y)[0];
@@ -49,7 +49,7 @@ const simplex = (tableauWrapper) => {
         variables: _.clone(values)
     });
 
-    console.log(values);
+    // console.log(values);
 
     while(hasNegative()) {
          // Get the pivot column
@@ -115,7 +115,6 @@ const simplex = (tableauWrapper) => {
         _.forEach(tempValues, (val, key) => {
             valuesCopy[key] = val;
         });
-        log(valuesCopy);
         values = valuesCopy;
 
         solutions.push({
@@ -291,12 +290,12 @@ const generateTableauF = input => {
             ...Array.apply(null, {
                 length: index
             }).map(Function.call, x => 0),
-            -1, // We negate because we want greater than 0 servings
+            1, // 1 SERVING
             ...Array.apply(null, {
                 // -1 for the var, -1 for the min servings
                 length: colCount - index - 2
             }).map(Function.call, x => 0),
-            -1 // min servings
+            1 // min servings
         ];
     });
 
@@ -323,92 +322,50 @@ const generateTableauF = input => {
         0 // Initial solution
     ];
 
-    // let tempTableau =_.map(_.clone([ // Remove reference to insertionArray before mutation
-    //     // Constraints for lessthanequalto
-    //     [ ...caloriesArray, ...insertionArray, calorieMax ],
-    //     [ ...cholesterolArray, ...insertionArray, cholesterolMax ],
-    //     [ ...totalFatArray, ...insertionArray, totalFatMax ],
-    //     [ ...sodiumArray, ...insertionArray, sodiumMax ],
-    //     [ ...carbohydratesArray, ...insertionArray, carbohydratesMax ],
-    //     [ ...dietaryFiberArray, ...insertionArray, dietaryFiberMax ],
-    //     [ ...proteinArray, ...insertionArray, proteinMax ],
-    //     [ ...vitAArray, ...insertionArray, vitAMax ],
-    //     [ ...vitCArray, ...insertionArray, vitCMax ],
-    //     [ ...calciumArray, ...insertionArray, calciumMax ],
-    //     [ ...ironArray, ...insertionArray, ironMax ],
-
-    //     // Negated version for the minimums
-    //     [ ...caloriesArray.map(x => -1 * x), ...insertionArray, -caloriesMin ],
-    //     [ ...cholesterolArray.map(x => -1 * x), ...insertionArray, -cholesterolMin ],
-    //     [ ...totalFatArray.map(x => -1 * x), ...insertionArray, -totalFatMin ],
-    //     [ ...sodiumArray.map(x => -1 * x), ...insertionArray, -sodiumMin ],
-    //     [ ...carbohydratesArray.map(x => -1 * x), ...insertionArray, -carbohydratesMin ],
-    //     [ ...dietaryFiberArray.map(x => -1 * x), ...insertionArray, -dietaryFiberMin ],
-    //     [ ...proteinArray.map(x => -1 * x), ...insertionArray, -proteinMin ],
-    //     [ ...vitAArray.map(x => -1 * x), ...insertionArray, -vitAMin ],
-    //     [ ...vitCArray.map(x => -1 * x), ...insertionArray, -vitCMin ],
-    //     [ ...calciumArray.map(x => -1 * x), ...insertionArray, -calciumMin ],
-    //     [ ...ironArray.map(x => -1 * x), ...insertionArray, -ironMin ],
-
-    //     ...minServingConstraints, //min Servings
-    //     ...maxServingConstraints, //maxServings
-    //     minimizingFunctionRow //Function to minimize
-
-    // ]), (row, index) => {
-    //     let x = _.clone(row);
-    //     x[index + foodCount] = 1;
-    //     return x;
-    // });
-
-
-
-
     let tempTableau =_.map(_.clone([ // Remove reference to insertionArray before mutation
         // Constraints for lessthanequalto
-        [ ...caloriesArray.map(x => -x), ...insertionArray, -calorieMax ],
-        [ ...cholesterolArray.map(x => -x), ...insertionArray, -cholesterolMax ],
-        [ ...totalFatArray.map(x => -x), ...insertionArray, -totalFatMax ],
-        [ ...sodiumArray.map(x => -x), ...insertionArray, -sodiumMax ],
-        [ ...carbohydratesArray.map(x => -x), ...insertionArray, -carbohydratesMax ],
-        [ ...dietaryFiberArray.map(x => -x), ...insertionArray, -dietaryFiberMax ],
-        [ ...proteinArray.map(x => -x), ...insertionArray, -proteinMax ],
-        [ ...vitAArray.map(x => -x), ...insertionArray, -vitAMax ],
-        [ ...vitCArray.map(x => -x), ...insertionArray, -vitCMax ],
-        [ ...calciumArray.map(x => -x), ...insertionArray, -calciumMax ],
-        [ ...ironArray.map(x => -x), ...insertionArray, -ironMax ],
+        [ ...caloriesArray, ...insertionArray, calorieMax ],
+        [ ...cholesterolArray, ...insertionArray, cholesterolMax ],
+        [ ...totalFatArray, ...insertionArray, totalFatMax ],
+        [ ...sodiumArray, ...insertionArray, sodiumMax ],
+        [ ...carbohydratesArray, ...insertionArray, carbohydratesMax ],
+        [ ...dietaryFiberArray, ...insertionArray, dietaryFiberMax ],
+        [ ...proteinArray, ...insertionArray, proteinMax ],
+        [ ...vitAArray, ...insertionArray, vitAMax ],
+        [ ...vitCArray, ...insertionArray, vitCMax ],
+        [ ...calciumArray, ...insertionArray, calciumMax ],
+        [ ...ironArray, ...insertionArray, ironMax ],
 
         // Negated version for the minimums
-        [ ...caloriesArray, ...insertionArray, caloriesMin ],
-        [ ...cholesterolArray, ...insertionArray, cholesterolMin ],
-        [ ...totalFatArray, ...insertionArray, totalFatMin ],
-        [ ...sodiumArray, ...insertionArray, sodiumMin ],
-        [ ...carbohydratesArray, ...insertionArray, carbohydratesMin ],
-        [ ...dietaryFiberArray, ...insertionArray, dietaryFiberMin ],
-        [ ...proteinArray, ...insertionArray, proteinMin ],
-        [ ...vitAArray, ...insertionArray, vitAMin ],
-        [ ...vitCArray, ...insertionArray, vitCMin ],
-        [ ...calciumArray, ...insertionArray, calciumMin ],
-        [ ...ironArray, ...insertionArray, ironMin ],
+        [ ...caloriesArray.map(x => x), ...insertionArray, caloriesMin ],
+        [ ...cholesterolArray.map(x => x), ...insertionArray, cholesterolMin ],
+        [ ...totalFatArray.map(x => x), ...insertionArray, totalFatMin ],
+        [ ...sodiumArray.map(x => x), ...insertionArray, sodiumMin ],
+        [ ...carbohydratesArray.map(x => x), ...insertionArray, carbohydratesMin ],
+        [ ...dietaryFiberArray.map(x => x), ...insertionArray, dietaryFiberMin ],
+        [ ...proteinArray.map(x => x), ...insertionArray, proteinMin ],
+        [ ...vitAArray.map(x => x), ...insertionArray, vitAMin ],
+        [ ...vitCArray.map(x => x), ...insertionArray, vitCMin ],
+        [ ...calciumArray.map(x => x), ...insertionArray, calciumMin ],
+        [ ...ironArray.map(x => x), ...insertionArray, ironMin ],
 
-        ...minServingConstraints, //min Servings
         ...maxServingConstraints, //maxServings
+        ...minServingConstraints, //min Servings
         minimizingFunctionRow //Function to minimize
 
     ]), (row, index) => {
         let x = _.clone(row);
-        x[index + foodCount] = 1;
+
+        let negativeSlack = ((index >= 11 && index <= 21) || (index >= 22 + foodCount && index < (22 + 2 * foodCount)));
+
+        if(negativeSlack) {
+            x[index + foodCount] = -1;
+        }
+        else {
+            x[index + foodCount] = 1;
+        }
         return x;
     });
-
-
-
-
-
-
-
-
-
-
 
 /*
     Schema of object to pass to simplex method
@@ -444,7 +401,7 @@ const generateTableauF = input => {
         tableHeaders
     }
 
-    // console.log(tempTableau);
+    console.log(tempTableau);
     const f = simplex(toSimplex);
     console.log(f);
 };
