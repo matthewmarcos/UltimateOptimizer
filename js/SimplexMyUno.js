@@ -20,6 +20,9 @@ const simplex = (tableauWrapper) => {
     const variableCount = tableauData.varCount;
     const slackVariableCount = tableauData.slackVariableCount;
 
+    const constraintNames = tableauData.rowHeaders;
+    const variableNames = tableauData.variableNames;
+
     solutions.push(_.clone(tableau));
 
     console.log('There are ' + variableCount + ' variables');
@@ -68,6 +71,11 @@ const simplex = (tableauWrapper) => {
         });
 
         let smallestNonzero = _.clone(trArray).sort((x, y) => x - y).filter(x => x > 0)[0]
+        if(!smallestNonzero) {
+            // Infeasible
+            Materialize.toast('There is no solution to your problem', 2000);
+            return [];
+        }
         let pivotElementRow = trArray.indexOf(smallestNonzero);
 
         // Normalize the pivot row
@@ -112,12 +120,7 @@ const generateTableauU = (constraints, toMaximize, isMaximize) => {
     // If minimize, negate the function.
     if(!isMaximize) {
         maximizeVar = _.map(maximizeVar, (x, key) => {
-            if(key !== maximizeVar.length - 1) {
-                return x * -1
-            }
-            else {
-                return x;
-            }
+            return x * -1
         });
     }
     // check constraints if they have <= and only one of it.
@@ -192,23 +195,27 @@ const generateTableauU = (constraints, toMaximize, isMaximize) => {
         rowHeaders: rowHeaders,
         varCount: maximizeVar.length,
         slackVariableCount: constraints.length,
+        variableNames: [ ..._.map(maximizeVar, (x, key) => 'X' + (key + 1)) ],
         rowCount, colCount
     };
 };
 
 // Generate Tableau for Food solver.
-const generateTableauF = foods => {
+const generateTableauF = input => {
+    const foods = _.clone(input);
     // Determine number of foodstuff
     const foodCount = foods.length;
+    const constraintCount = 22 + foodCount * 2;
 
     // Generate Variables
     let variables = Array.apply(null, {
         length: foodCount
     }).map(Function.call, x => 'food' + (x + 1));
 
-    // Minimize price
+    // Objective function
     const priceArray = foods.map(x => x.pricePerServing);
 
+    // constraints
     const caloriesArray = foods.map(x => x.calories);
     const cholesterolArray = foods.map(x => x.cholesterol);
     const totalFatArray = foods.map(x => x.totalFat);
@@ -222,6 +229,7 @@ const generateTableauF = foods => {
     const ironArray = foods.map(x => x.iron);
 
     const priceMin = 0;
+
     const caloriesMin = 2000;
     const cholesterolMin = 0;
     const totalFatMin = 0;
