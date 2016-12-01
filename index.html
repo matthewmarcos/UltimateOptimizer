@@ -114,6 +114,7 @@
             <div class="row" id="scroll-here"></div>
             <!--Print Tableau Solution-->
             <div class="row" v-for="(tableau, index) in ultimateOptimizer.solutions">
+                <div class="divider"></div>
                 <h5>Iteration {{ index }}</h5>
                 <table>
                     <thead>
@@ -133,9 +134,19 @@
                     </tbody>
                 </table>
                 <!--For the values of the slack variables and other stuff-->
-                <div v-for="(value, key) in tableau.variables">
-                    {{ key }} : {{ value }}
-                </div>
+                <h5>Basic Solution:</h5>
+                <table>
+                    <thead>
+                        <th v-for="(value, key) in tableau.variables">
+                            {{ key }}
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td v-for="(value, key) in tableau.variables">{{ value }}</td>
+                        </th>
+                    </tbody>
+                </table>
             </div>
 
 
