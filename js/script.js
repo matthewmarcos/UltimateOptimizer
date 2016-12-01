@@ -17,22 +17,37 @@ const rootVue = new Vue({
         },
 
         ultimateOptimizer: {
-            maxFunction: '150 175',
             isMaximize: true,
             solutions: [],
             tableHeaders: [],
             rowHeaders: [],
+
+            // maxFunction: '150 175',
+            maxFunction: '35 120 50 75',
+
+            // constraints: [{
+            //     string: '7 11 <= 77'
+            // },
+            // {
+            //     string: '10 8 <= 80'
+            // },
+            // {
+            //     string: '1 0 <= 9'
+            // },
+            // {
+            //     string: '0 1 <= 6'
+            // }]
             constraints: [{
-                string: '7 11 <= 77'
+                string: '1.5 0 1 0.5 <= 1'
             },
             {
-                string: '10 8 <= 80'
+                string: '1 2 1 0 <= .5'
             },
             {
-                string: '1 0 <= 9'
+                string: '0 6 1 2.5 <= 2.5'
             },
             {
-                string: '0 1 <= 6'
+                string: '2 4 1 1.5 <= 3'
             }]
         }
     },
