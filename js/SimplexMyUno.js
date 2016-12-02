@@ -206,14 +206,25 @@ const generateTableauU = (constraints, toMaximize, isMaximize) => {
 
         // Put the 1's in a diagonal
         insertionArray = _.map(insertionArray, (something, ind) => {
-            if(ind === index) return slackVariableSign[ind];
+            if(ind === index) return 1;
             return 0;
         });
 
         x.splice(x.length-1, 0, insertionArray);
 
+
+
         return _.flatten(x);
     });
+
+    // Multiply negative if greater than or less than
+    tempTableau = _.map(tempTableau, (row, index) => {
+        let tempRow = _.clone(row);
+
+        return _.map(tempRow, n => n * slackVariableSign[index]);
+    });
+
+
 
     const tableHeaders = [
         ..._.map(maximizeVar, (x, key) => 'X' + (key + 1)),
