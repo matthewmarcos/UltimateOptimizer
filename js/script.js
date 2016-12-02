@@ -6,23 +6,25 @@ const rootVue = new Vue({
     el: '#app',
 
     data: {
-        appType: 'ultimate-optimizer',
-        // appType: 'dietary-problem-solver',
+        // appType: 'ultimate-optimizer',
+        appType: 'dietary-problem-solver',
 
         dietarySolver: {
             focusedFood: '', //Food on the display
             solution: [], // Print these one by one for the graph
             choices: [...foodNames], //Food that the user can pick
-            picks: [] // The food the user wants
+            picks: [], // The food the user wants
+            diet: []
         },
 
         ultimateOptimizer: {
-            // maxFunction: '150 175',
-            maxFunction: '35 120 50 75',
             isMaximize: true,
             solutions: [],
             tableHeaders: [],
             rowHeaders: [],
+            // maxFunction: '150 175',
+            maxFunction: '35 120 50 75',
+
             // constraints: [{
             //     string: '7 11 <= 77'
             // },
@@ -104,10 +106,10 @@ const rootVue = new Vue({
 
             this.ultimateOptimizer.tableHeaders = _.clone(startingTableau.tableHeaders);
             this.ultimateOptimizer.rowHeaders = _.clone(startingTableau.rowHeaders);
-            // this.ultimateOptimizer.solutions.push(startingTableau.tableau);
-            // this.ultimateOptimizer.solutions.push(_.clone(startingTableau.tableau));
+
             const solution = simplex(startingTableau);
             this.ultimateOptimizer.solutions = _.clone(solution);
+            Materialize.toast('Success!', 2000);
         },
 
         deleteConstraint(index) {
@@ -191,9 +193,13 @@ const rootVue = new Vue({
         optimizeFood() {
             // dietarySolver - Solve the function
             // Create unreferenced copy of the user's selection
-            let myPicks = $.extend(true, {}, this.dietarySolver.picks);
-
-            generateTableauF(this.dietarySolver.picks);
+            let myPicks = _.clone(this.dietarySolver.picks);
+            if(myPicks.length === 0) {
+                Materialize.toast('No food selected', 2000);
+                return;
+            }
+            const diet = generateTableauF(myPicks);
+            this.dietarySolver.diet = diet;
         }
 
     }
@@ -207,4 +213,8 @@ $(_ => {
             scrollTop: ($("#scroll-here").offset().top + $("#scroll-here").height() - $(window).height())
         }, 250);
     });
-})
+
+    $('.modal').modal();
+    $('.tooltipped').tooltip({delay: 50});
+
+});
