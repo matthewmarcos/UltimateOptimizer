@@ -296,7 +296,9 @@
             </div>
             <!--Solutions Row for dietary problem solver-->
             <div class="row">
-
+                <div v-for="food in dietarySolver.diet">
+                    {{ food.food }}: {{ food.amount }}<br/>
+                </div>
             </div>
         </div>
     </div>

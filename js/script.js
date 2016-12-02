@@ -13,7 +13,8 @@ const rootVue = new Vue({
             focusedFood: '', //Food on the display
             solution: [], // Print these one by one for the graph
             choices: [...foodNames], //Food that the user can pick
-            picks: [] // The food the user wants
+            picks: [], // The food the user wants
+            diet: []
         },
 
         ultimateOptimizer: {
@@ -198,7 +199,8 @@ const rootVue = new Vue({
                 Materialize.toast('No food selected', 2000);
                 return;
             }
-            generateTableauF(myPicks);
+            const diet = generateTableauF(myPicks);
+            this.dietarySolver.diet = diet;
         }
 
     }
