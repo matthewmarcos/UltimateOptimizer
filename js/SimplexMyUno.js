@@ -253,12 +253,6 @@ const generateTableauF = input => {
     const foods = _.clone(input);
     // Determine number of foodstuff
     const foodCount = foods.length;
-    // Constraints:
-    // 11 for maximizing nutrients
-    // 11 for minimizing nutrients
-    // foodCount max servings
-    // foodCount min servings
-    // price Min <= di na kailangan kasi may min servings na?
     const constraintCount = 23 + foodCount * 2; //Sinama na ang Z?
     const foodNameArray = foods.map(x => x.food);
 
@@ -309,9 +303,6 @@ const generateTableauF = input => {
     const calciumMax = 1600;
     const ironMax = 30;
 
-    const newRowCount = constraintCount + 1;
-    const colCount = foods.length + insertionArray.length + 1;
-
     const minServingConstraints = _.map(priceArray, (variable, index) => {
         return [
             ...Array.apply(null, {
@@ -320,7 +311,7 @@ const generateTableauF = input => {
             1, // Value of Xi
             ...Array.apply(null, {
                 // -1 for the var, -1 for the min servings
-                length: colCount - index - 2
+                length: foods.length - index - 2
             }).map(Function.call, x => 0),
             1 // min servings
         ];
@@ -334,7 +325,7 @@ const generateTableauF = input => {
             1, // Value of Xi
             ...Array.apply(null, {
                 // -1 for the var, -1 for the max servings
-                length: colCount - index - 2
+                length: foods.length - index - 2
             }).map(Function.call, x => 0),
             10 // max servings
         ];
@@ -342,64 +333,80 @@ const generateTableauF = input => {
 
     const minimizingFunctionRow = [
         ...priceArray.map(x => x),
-        ...Array.apply(null, {
-            // -1 for the var, -1 for the max servings
-            length: colCount - priceArray.length - 1
-        }).map(Function.call, x => 0),
         0 // Initial solution
     ];
 
-    let tempTableau =_.map(_.clone([ // Remove reference to insertionArray before mutation
+    let tempTableau =_.clone([ // Remove reference to insertionArray before mutation
         // Constraints for lessthanequalto
-        [ ...caloriesArray, ...insertionArray, calorieMax ],
-        [ ...cholesterolArray, ...insertionArray, cholesterolMax ],
-        [ ...totalFatArray, ...insertionArray, totalFatMax ],
-        [ ...sodiumArray, ...insertionArray, sodiumMax ],
-        [ ...carbohydratesArray, ...insertionArray, carbohydratesMax ],
-        [ ...dietaryFiberArray, ...insertionArray, dietaryFiberMax ],
-        [ ...proteinArray, ...insertionArray, proteinMax ],
-        [ ...vitAArray, ...insertionArray, vitAMax ],
-        [ ...vitCArray, ...insertionArray, vitCMax ],
-        [ ...calciumArray, ...insertionArray, calciumMax ],
-        [ ...ironArray, ...insertionArray, ironMax ],
+        [ ...caloriesArray.map(x => -x), -calorieMax ],
+        [ ...cholesterolArray.map(x => -x), -cholesterolMax ],
+        [ ...totalFatArray.map(x => -x), -totalFatMax ],
+        [ ...sodiumArray.map(x => -x), -sodiumMax ],
+        [ ...carbohydratesArray.map(x => -x), -carbohydratesMax ],
+        [ ...dietaryFiberArray.map(x => -x), -dietaryFiberMax ],
+        [ ...proteinArray.map(x => -x), -proteinMax ],
+        [ ...vitAArray.map(x => -x), -vitAMax ],
+        [ ...vitCArray.map(x => -x), -vitCMax ],
+        [ ...calciumArray.map(x => -x), -calciumMax ],
+        [ ...ironArray.map(x => -x), -ironMax ],
 
         // Negated version for the minimums
-        [ ...caloriesArray.map(x => x), ...insertionArray, caloriesMin ],
-        [ ...cholesterolArray.map(x => x), ...insertionArray, cholesterolMin ],
-        [ ...totalFatArray.map(x => x), ...insertionArray, totalFatMin ],
-        [ ...sodiumArray.map(x => x), ...insertionArray, sodiumMin ],
-        [ ...carbohydratesArray.map(x => x), ...insertionArray, carbohydratesMin ],
-        [ ...dietaryFiberArray.map(x => x), ...insertionArray, dietaryFiberMin ],
-        [ ...proteinArray.map(x => x), ...insertionArray, proteinMin ],
-        [ ...vitAArray.map(x => x), ...insertionArray, vitAMin ],
-        [ ...vitCArray.map(x => x), ...insertionArray, vitCMin ],
-        [ ...calciumArray.map(x => x), ...insertionArray, calciumMin ],
-        [ ...ironArray.map(x => x), ...insertionArray, ironMin ],
+        [ ...caloriesArray, caloriesMin ],
+        [ ...cholesterolArray, cholesterolMin ],
+        [ ...totalFatArray, totalFatMin ],
+        [ ...sodiumArray, sodiumMin ],
+        [ ...carbohydratesArray, carbohydratesMin ],
+        [ ...dietaryFiberArray, dietaryFiberMin ],
+        [ ...proteinArray, proteinMin ],
+        [ ...vitAArray, vitAMin ],
+        [ ...vitCArray, vitCMin ],
+        [ ...calciumArray, calciumMin ],
+        [ ...ironArray, ironMin ],
 
         ...maxServingConstraints, //maxServings
         ...minServingConstraints, //min Servings
         minimizingFunctionRow //Function to minimize
+    ]);
 
-    ]), (row, index) => {
+    tempTableau = transpose(tempTableau);
+
+    let varCount = tempTableau[0].length; //Variables
+    let varNames = _.times(varCount, x => `X${x + 1}`);
+    let constCount = tempTableau.length - 1; //Number of rows
+    let slackVariableCount = constCount;
+    let rowHeaders = _.map(tempTableau, (x, ind) => `S${ind + 1}`);
+    let insertionArrayLength = tempTableau.length;
+    rowHeaders[rowHeaders.length - 1] = 'Z';
+
+    tempTableau = _.map(tempTableau, (row, index) => { //insert slack variables
         let x = _.clone(row);
-        x[index + foodCount] = 1;
-        if(index === constraintCount - 1) {
-            x[index + foodCount] = -1;
-        }
-        return x;
+
+        let insertionArray = Array.apply(null, {
+            length: insertionArrayLength
+        }).map(Function.call, x => 0);
+
+        // Put the 1's in a diagonal
+        insertionArray = _.map(insertionArray, (something, ind) => {
+            if(ind === index) return 1;
+            return 0;
+        });
+
+        x.splice(x.length-1, 0, insertionArray);
+
+        return _.flatten(x);
     });
 
-    // Flipping minimum constraint rows
-    tempTableau = _.map(tempTableau, (row, index) => {
-        let negativeSlack = ((index >= 11 && index <= 21) || (index >= 22 + foodCount && index < (22 + 2 * foodCount)));
+    let tableHeaders = [
+        ..._.times(varCount, x => `X${x + 1}`),
+        ..._.clone(rowHeaders)
+    ];
 
-        if(negativeSlack) {
-            return row.map(x => -x);
-        }
-        else {
-            return row
-        }
-    });
+    log('Temp Tableau!')
+    log(tempTableau);
+
+    log('Table headers!')
+    log(tableHeaders)
+
 
 /*
     Schema of object to pass to simplex method
@@ -412,35 +419,19 @@ const generateTableauF = input => {
         tableHeaders
     }
 */
-    // Generate Row Headers
-    // Generate Variable Names
-    const variableNames = _.map(foodNameArray , (name, index) => `X${index + 1}`);
-
-    let rowHeaders = _.map(insertionArray, (x, index) => `S${index + 1}`);
-    rowHeaders[rowHeaders.length - 1] = 'Z';
-
-    const tableHeaders = [
-        ...variableNames,
-        ...rowHeaders
-    ];
-
-    // Generate Table Headers
-
     const toSimplex = {
         tableau: tempTableau,
-        varCount: foodCount,
-        slackVariableCount: constraintCount,
+        varCount: varCount,
+        slackVariableCount: slackVariableCount,
         rowHeaders,
-        variableNames,
+        variableNames: _.times(varCount, x => `X${x + 1}`),
         tableHeaders
-    }
+    };
 
-    console.log(tempTableau);
     const f = simplex(toSimplex);
-    if(f === []) return; //No Solution
-    // console.log(f);
+    console.log(f);
+    // if(f === []) return; //No Solution
 
-    return evalSolution(_.clone(f.pop().variables), _.clone(foods));
 };
 
 const evalSolution = (score, foods) => {
